@@ -1,4 +1,4 @@
-# ---- OS / Windows 系ゴミ ----
+# ---- OS / Windows 系ごみ ----
 *Zone.Identifier
 
 
@@ -6,7 +6,8 @@
 requirements_system.txt
 requirements_all.txt
 
-
+# プロジェクトの個人メモ
+traffic_analysis_project_notes_*.md
 
 # ---- Python ----
 __pycache__/
@@ -14,27 +15,23 @@ __pycache__/
 *.pyo
 *.pyd
 
-# 仮想環境名（将来この中に .venv 作っても安心）
+# 仮想環境
 .venv/
 venv/
 env/
 
-# ---- Jupyter / HTML 出力 ----
-traffic_analysis_project.ipynb
-traffic_analysis_project.html
-
-# 将来的に他のノートブックも ignore したいならこっちでもOK
-*.ipynb
+# ---- ipynb, HTML 出力 ----
 *.html
+.ipynb_checkpoints/
 
-# ---- データ（方針次第）----
-# 生データを data/raw にまとめる方針にするなら ↓ を採用
+
+# ---- データ ----
 data/raw/
 *.csv
 
 # .vscode 配下は基本全部無視
 .vscode/*
-# ただし settings.json だけは Git 管理したい
+# ただし、以下の設定ファイルは管理対象に含める
 !.vscode/settings.json
 !.vscode/launch.json
 !.vscode/tasks.json
