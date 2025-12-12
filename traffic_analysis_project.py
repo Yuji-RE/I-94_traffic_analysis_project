@@ -118,16 +118,29 @@ i_94["year"] = i_94["date_time"].dt.year
 
 # %%
 # 交通量の度数分布をヒストグラムで可視化する
-i_94["traffic_volume"].plot.hist(color="skyblue", edgecolor="black")
+
+# デフォルトだと階級幅とbin境界がズレて見にくいので、調整する
+bin_width = 1000
+
+xmin = 0
+x_max = i_94["traffic_volume"].max()
+bins = np.arange(xmin, x_max + bin_width, bin_width)
+
+ax = i_94["traffic_volume"].plot.hist(bins=bins, color="skyblue", edgecolor="black")
+
+ax.set_xticks(bins)
+
 plt.grid(axis="y", linestyle="--", color="gray", alpha=0.5)
 plt.title("I-94 Traffic Volume")
-plt.xlabel("Traffic Volume (Average Vehicles per Hour)")
+plt.xlabel("Traffic Volume  (Average Vehicles per Hour)")
+plt.ylabel("Frequency")
+plt.show()
 
 # %% [markdown]
 """
 `traffic_volume`のヒストグラムの結果から、二峰性が伺える。
 
-1000台付近と5000台付近の階級で度数が特に増えていることから、
+0～1000台と4000～5000台の階級で度数が特に増えていることから、
 「交通量が増えるラッシュアワー」と「交通量が減る閑静期」の2つの分布が混ざっている可能性を疑う。
 
 `traffic_volume`と他の説明変数との相関係数を確認して、まずはどの要因が交通量に影響を与えているのかを調べていく。
@@ -266,33 +279,31 @@ plt.grid(True, linestyle="--", alpha=0.6)
 # %%
 
 
-# IQRを用いて外れ値を除外する関数を定義
 def remove_outliers_iqr(group, col="traffic_volume", k=1.5):
     q1 = group[col].quantile(0.25)
     q3 = group[col].quantile(0.75)
     iqr = q3 - q1
     lower = q1 - k * iqr
     upper = q3 + k * iqr
-    return group[(group[col] >= lower) & (group[col] <= upper)]
+    # month を確実に保持（include_groups=False 対応）
+    return group[(group[col] >= lower) & (group[col] <= upper)].assign(month=group.name)
 
 
-# 前処理と関数を適用して、欠損値及び外れ値を除外したデータセットを作成
 day_time_clean = day_time.dropna(subset=["month", "traffic_volume"]).copy()
+
 day_time_no_out = day_time_clean.groupby("month", group_keys=False).apply(
-    remove_outliers_iqr
+    remove_outliers_iqr, include_groups=False
 )
 
-# 月ごとの平均交通量を計算（外れ値除外後と元データの両方）
 by_month_iqr = day_time_no_out.groupby("month")["traffic_volume"].mean().sort_index()
 by_month = day_time.groupby("month")["traffic_volume"].mean().sort_index()
 
-# グラフを描画して比較対照
-ax = by_month.plot(marker="o", color="green", linewidth=2, label="Mean (original)")
+ax = by_month.plot(marker="o", linewidth=2, label="Mean (original)")
 by_month_iqr.plot(ax=ax, marker="o", linewidth=2, label="Mean (IQR outliers removed)")
 
 plt.title("Average Traffic Volume by Month", fontsize=14)
 plt.xlabel("Month")
-plt.ylabel("Average Traffic Volume  (vehicles per hour)")
+plt.ylabel("Average Traffic Volume (vehicles per hour)")
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.legend()
 plt.show()
@@ -469,7 +480,7 @@ ax.legend(title="date (sorted)", labels=weekday_order)
 ax.set_title(
     "Daytime Average Traffic Volume by Weekday (Weekly, 4-week MA)", fontsize=14
 )
-ax.set_xlabel("Week (Mon-Start)")
+ax.set_xlabel("Week")
 ax.set_ylabel("Average Traffic Volume (Vehicles per hour)")
 ax.grid(True, linestyle="--", alpha=0.6)
 plt.tight_layout()
@@ -494,14 +505,15 @@ plt.show()
 未知の情報としては月と曜日なので、それを特定できるように、「○ 月の平均交通量の推移」がわかるコード<br>
 
 ```python
-by_day_2014_「月を代入」 = (
+by_day_「年を代入」_「月を代入」 = (
     day_time.loc[
-        (day_time['year'] == 2014) & (day_time['month'] == 「月を代入」 )
+        (day_time['year'] == 「年を代入」) & (day_time['month'] == 「月を代入」 )
     ]
     .groupby('day')['traffic_volume']
     .mean()
 )
 ```
+
 
 を2つ作り、`「月を代入」`のところに順次月を代入していき、グラフの出力結果を基に異常が発生した期間を特定する
 原始的な方法をとる。
@@ -548,15 +560,19 @@ plt.tight_layout()
 
 # %% [markdown]
 """
-結果、2014年8月7日～2015年6月12日までの間、データが欠損していることが分かった。
-つまり、セル［13］の移動平均のグラフにおける「変動しないデータ」の正体が、欠損値だということが判明した。
+分析の結果、2014年8月7日〜2015年6月12日の期間にかけて継続的な欠損があることが分かった。
+よって、セル［15］の移動平均グラフで見られた「一定値が続くフラットな区間」は、この欠損によるものである可能性が高い。
 
-この欠損値の処遇に関しては、本プロジェクトで使用している日付データのサンプルサイズが十分に大きいこと、
-分析目的が「交通量が最も多くなる時の値」といった定量的なものではなく「交通量が最も多くなるのはどんなときか」という時間帯や
-気象条件などの定性的なものを明らかにすることであり、かつ、曜日ごとの欠損度合いもほとんどバラつきが伺えないため、
-データ削除などの処理は省く方針とする。
+本プロジェクトでは、この欠損値に対して積極的な補完や削除は行わないこととした。
+理由は以下の通りである。
 
-よって、この欠損値に関しては、特段なにもせずそのまま分析を続行していく。
+* 本プロジェクトで扱う日付データのサンプルサイズは十分に大きい。
+* 欠損が発生している期間は、特定の月や曜日に偏っておらず、交通量の季節性・曜日性の傾向を大きく歪める可能性は低いと判断される。
+
+以上から、現時点では分析結果への影響は限定的とみなし、EDAフェーズにおいては欠損値をそのまま許容する。
+
+なお、より厳密なモデル構築や予測を目的とした分析であれば、
+このような欠損期間については、適切な補完や除外ルールを設けて処理する必要がある。
 """
 # %% [markdown]
 """
