@@ -253,7 +253,7 @@ display(summary)
 by_month = day_time.groupby("month")["traffic_volume"].mean().sort_index()
 # グラフを描画
 by_month.plot(marker="o", color="green", linewidth=2)
-plt.title(r"Average Traffic Volume by Month", fontsize=14)
+plt.title("Daytime Average Traffic Volume by Month", fontsize=14)
 plt.xlabel("Month")
 plt.ylabel("Average Traffic Volume  (vehicles per hour)")
 plt.grid(True, linestyle="--", alpha=0.6)
@@ -278,26 +278,31 @@ plt.grid(True, linestyle="--", alpha=0.6)
 """
 # %%
 
+# 外れ値判定の幅を決定する定数kを設定
+k = 1.5
 
-def remove_outliers_iqr(group, col="traffic_volume", k=1.5):
-    q1 = group[col].quantile(0.25)
-    q3 = group[col].quantile(0.75)
-    iqr = q3 - q1
-    lower = q1 - k * iqr
-    upper = q3 + k * iqr
-    # month を確実に保持（include_groups=False 対応）
-    return group[(group[col] >= lower) & (group[col] <= upper)].assign(month=group.name)
-
-
+# 欠損値を除外した日中データを作成
 day_time_clean = day_time.dropna(subset=["month", "traffic_volume"]).copy()
 
-day_time_no_out = day_time_clean.groupby("month", group_keys=False).apply(
-    remove_outliers_iqr, include_groups=False
-)
+# IQRを用いて外れ値を除外
+g = day_time_clean.groupby("month")["traffic_volume"]
+q1 = g.transform(lambda s: s.quantile(0.25))
+q3 = g.transform(lambda s: s.quantile(0.75))
+iqr = q3 - q1
 
+lower = q1 - k * iqr
+upper = q3 + k * iqr
+
+day_time_no_out = day_time_clean[
+    (day_time_clean["traffic_volume"] >= lower)
+    & (day_time_clean["traffic_volume"] <= upper)
+]
+
+# 月ごとの平均交通量を計算（外れ値除外後と元データの両方）
 by_month_iqr = day_time_no_out.groupby("month")["traffic_volume"].mean().sort_index()
 by_month = day_time.groupby("month")["traffic_volume"].mean().sort_index()
 
+# グラフを描画して比較
 ax = by_month.plot(marker="o", linewidth=2, label="Mean (original)")
 by_month_iqr.plot(ax=ax, marker="o", linewidth=2, label="Mean (IQR outliers removed)")
 
@@ -651,7 +656,9 @@ plt.show()
 ### 時間帯と交通量の関係
 
 次は、一日の中でも特に交通量が多い時間帯を特定するために、時間帯ごとの平均交通量を比較していく。
-このグラフでも同様に、ピーク時を赤点で強調表示し、直感的に把握しやすいようにする。
+これまでの分析で平日の方が交通量が多いことが分かっているため、本来は平日のグラフのみをプロットすればよいが、
+より包括的な理解を得るために、週末のグラフも併せて描画して比較対照していく。
+なお、このグラフでも同様に、ピーク時を赤点で強調表示し、直感的に把握しやすいようにする。
 """
 # %%
 # 平日・週末それぞれの時間帯ごとの平均交通量を比較し、ピークを可視化
@@ -676,7 +683,7 @@ plt.figure(figsize=(12, 6))
 plt.plot(
     by_hour_business.index,
     by_hour_business["traffic_volume"],
-    label=f"Weekday (Peak={peak_value_business:.0f} at {peak_hour_business}:00)",
+    label=f"Weekdays (Peak={peak_value_business:.0f} at {peak_hour_business}:00)",
     color="orange",
     linewidth=2,
 )
@@ -898,9 +905,9 @@ plt.show()
 より細かい気象条件で見ると、天気によって交通量に差がある様子がうかがえる。
 一見すると、晴れの日よりも雨・雪・曇りの日の方が交通量が多いように見える点は興味深い。ただし、`Sky is Clear`（6行目）と
 `sky is blue`（16行目）が実質同じ「快晴」であるにもかかわらず別々にカウントされているため、快晴の影響はやや過小評価されている
-可能性がある。それを踏まえても、「天気が良い日＝交通量が増える」とは簡単に言えない状況である。
+可能性がある。それを踏まえても、依然として「天気が良い日＝交通量が増える」とは断言できそうにない結果だ。
 
-雨や雪の日には、ふだん徒歩や自転車で移動している人が車に切り替える可能性があるし、雪による渋滞が結果的に交通量（通過台数）を
+雨や雪の日には、ふだん徒歩や自転車で移動している人が車に切り替える可能性があるし、雪による渋滞が結果的に交通量を
 押し上げることも考えられる。一方で、セル［9］で見たように冬場は全体として交通量が少ない傾向があるにもかかわらず、
 寒い時期に発生する `shower snow` や `light rain and snow` が交通量上位に入っているのは不思議な点である。
 
@@ -916,12 +923,11 @@ plt.show()
 ということで、次は、「地雷＝暖かい季節でも避けたほうが良い時期」を特定していく。
 
 
-ちなみに、`thunderstorm with drizzle`の時に交通量が最も少ないことと、セル［12］にて検知された23日の交通量観測の
-異常の間に何か繋がりがあるのではないかと思い個人的にウェブリサーチして見た結果
-<sup><a href="#fn1" id="ref1" style="color: red;">1</a></sup>、
-その当日雷雨であったことが可能性がでてきた。もしかすると落雷などによる観測器の異常かもしれない。
+ちなみに、`thunderstorm with drizzle`の時に交通量が最も少ないことと、セル［14］にて検知された23日の交通量観測の
+異常の間に何か繋がりがあるのではないかと思い個人的にウェブリサーチして見た結果、その当日雷雨であったことが可能性
+<sup><a href="#fn1" id="ref1" style="color: red;">2</a></sup>がでてきた。もしかすると落雷などによる観測器の異常かもしれない。
 
-これから行う分析の中で、`thunderstorm with drizzle`が発生した日付を特定し、もしそこに2016/7/23があればビンゴとなるので、
+これから行っていく分析で、`thunderstorm with drizzle`が発生した日付が2016/7/23であればビンゴとなるので、
 このことも念頭に置いておく。
 
 <hr>
@@ -994,19 +1000,14 @@ display(df_display)
 # %% [markdown]
 """
 ここで、`sky is clear`カラム以外のカラムがほとんど欠損値で占められていて使い物にならない可能性が浮上した。
-この発見が氷山の一角かもしれないので、日中データにおける`weather_description`の全項目の度数を調査する。
-
-上の結果を直感的に捉えるために、同時に各気象条件の度数に関する棒グラフも作成しておく。
-
+この発見が氷山の一角かもしれないので、念のために、一年間の日中データにおける各気象条件の度数を棒グラフで確認してみる。
 
 <hr>
 余談だが、上の表の1行目で`thunderstorm with drizzle`の発生日が2016年7月23日と合致したので、やはりセル［20］での仮説通り、
 その日のデータの欠損や雷雨の影響を受けていた可能性が高いことが明らかになった。
 """
 # %%
-day_time["weather_description"].value_counts()
 
-# %%
 # グラフのサイズとスタイルを設定
 plt.figure(figsize=(12, 8))
 sns.set_theme(style="whitegrid")
@@ -1029,25 +1030,29 @@ plt.tight_layout()
 
 plt.show()
 
+day_time["weather_description"].value_counts()
+
 # %% [markdown]
 """
-結果として、4月から10月にかけての日中データについて、快晴の気象データ以外は、
+上記の結果より、セル［22］での疑惑について、
 
+快晴の気象データ以外は、
 - shower snow は全て欠損値
 - squalls 1つのデータ以外すべて欠損値
 - thunderstorm with drizzle 1つのデータ以外すべて欠損値
 
 ということが判明した。
 
-つまり、セル［19］の棒グラフで示された不自然な事象は、標本サイズがアンバランスなデータの影響を受けている可能性が非常に高い。
+つまり、セル［21］の棒グラフで示された不自然な事象（平均交通量が冬季気象に影響をほとんど受けないこと）は、標本サイズが
+アンバランスなデータの影響を受けている可能性が非常に高い。
 この場合、当該棒グラフは偏った平均値を反映していることになるため、あのままの状態では参考にならないし、
-同セルで立てた私の「暖かい時期でも雷雨やスコールの発生しやすい時期はさけるべきである」という仮説も効力を失う。
+同セルで立てた「暖かい時期でも雷雨やスコールの発生しやすい時期はさけるべきである」という仮説も効力を失う。
 """
 # %% [markdown]
 """
-上記のような不備が発覚したので、改めて正しいデータを使ったセル［19］の棒グラフの改訂版を作っていく。
+上記のような不備が発覚したので、改めて正しいデータを使ったセル［21］の棒グラフの改訂版を作っていく。
 新しい棒グラフを作成するにおいて、サンプルサイズが十分に大きく、かつ暖かい時期に発生する気象条件に絞って
-トップ10の項目を特定していく。
+トップ10の気象項目を特定していく。
 """
 # %%
 warm_season_weather_count = day_time[month_condition][
@@ -1089,12 +1094,14 @@ target_weather_list = [
     "light intensity drizzle",
 ]
 
+warm_season_daytime = day_time[month_condition]
 
 # 2. 元のデータフレームから、指定した天候のデータだけを抽出する
-#    .isin() メソッドが非常に便利です
-filtered_day_time = day_time[day_time["weather_description"].isin(target_weather_list)]
+filtered_day_time = warm_season_daytime[
+    warm_season_daytime["weather_description"].isin(target_weather_list)
+]
 
-# 3. 絞り込んだデータを使って★、天候ごとの平均交通量を計算し、並べ替える
+# 3. 絞り込んだデータを使って、天候ごとの平均交通量を計算し、並べ替える
 by_weather_description_selected = (
     filtered_day_time.groupby("weather_description")["traffic_volume"]
     .mean()
@@ -1132,7 +1139,8 @@ for index, value in enumerate(by_weather_description_selected):
 
 
 plt.title(
-    "Average Traffic Volume for Major Weather Descriptions (Daytime)", fontsize=16
+    "Average Traffic Volume for Major Weather Descriptions (Warm Season Daytime)",
+    fontsize=16,
 )
 plt.xlabel("Average Traffic Volume", fontsize=12)
 plt.ylabel("Weather Description", fontsize=12)
@@ -1143,66 +1151,193 @@ plt.show()
 
 # %% [markdown]
 """
-暖かい時期の気象においては、あまり差がないように思えるが、強いて言えば天気が少し悪い日（というより、当該時期における
-観測地点の一般的な気象なのかもしれない）の方が交通量が増える傾向があるかのように思える。
+暖かい時期（日中）の天候別平均交通量を見ると、全体として差は大きくないものの、
+`scattered clouds` のような「曇り寄り」の天候で交通量がやや高く、
+`mist` / `haze` のような視界不良に関連する天候でやや低い傾向が見られる。
 
-おそらく天気が多少悪い時に、雨などに濡れることを気にして普段歩きや自転車・バイクの人たちが車で移動するようになるため、
-交通量が増える傾向があるのかもしれない。
-
-ここで気になるのが、最大値をもつ`scattered clouds`と最低値付近のや`mist`との間の差が、統計的に有意かどうかだ。
-もし有意であれば、同じ暖かい季節でも、「煙霧」や「霧」といった視界不良を引き起こす気象現象が発生する時期を避けるべきという
-重要な指針となる。
-
-よって、これから`rpy2`をつかって`scattered clouds`と`haze`の平均交通量の差が優位かどうか検定を行う。
+この差が偶然のブレではなく、統計的に意味のある差（母平均の差）と言えるのかを確かめるため、
+以降では `scattered clouds` と `mist` を取り上げて平均交通量の差の検定を行う。
+（以降は等分散を仮定しない Welch の t 検定を採用する）
 """
+
 # %% [markdown]
 """
 今回行う検定は、2標本の差の検定である。
 
-サンプルサイズが十分大きいことから正規分布を仮定し、等分散性は必ずしも仮定できないことからいきなりウェルチのt検定を行うこと
-もできるが、念のために、「分布の形状」をヒストグラムで可視化し、相互相関と自己相関の有無についても確認する。
+サンプルサイズが十分大きいことから正規分布を仮定し、等分散性は必ずしも仮定できないことからいきなりウェルチのt検定を行う。
+
+ただし時系列データである以上、「観測が独立である」という前提がどの程度妥当かは気になる点なので、
+(1) 分布の形（ヒストグラム）を確認し、
+(2) 自己相関が強く残っていないかを、ACFを用いて“参考情報として”確認する。
 """
 # %%
-# Series を作る（traffic_volume 列だけ）
-sc = day_time.loc[
-    day_time["weather_description"] == "scattered clouds", "traffic_volume"
-].dropna()
-hz = day_time.loc[day_time["weather_description"] == "haze", "traffic_volume"].dropna()
 
-# ヒストグラム
+# 1) 日付順にソート（念のため）
+warm_season_daytime_sorted = warm_season_daytime.sort_values("date_time").copy()
+
+# 2) 日付列を作成（date_onlyは日単位）
+warm_season_daytime_sorted["date_only"] = warm_season_daytime_sorted[
+    "date_time"
+].dt.date
+
+# 3) 天候ごとに「日次平均交通量」系列を作る（1日1点）
+sc_daily = (
+    warm_season_daytime_sorted[
+        warm_season_daytime_sorted["weather_description"] == "scattered clouds"
+    ]
+    .groupby("date_only")["traffic_volume"]
+    .mean()
+)
+
+mst_daily = (
+    warm_season_daytime_sorted[
+        warm_season_daytime_sorted["weather_description"] == "mist"
+    ]
+    .groupby("date_only")["traffic_volume"]
+    .mean()
+)
+
+# 4) indexをdatetime化してソート（ACFを日ラグとして扱うため）
+sc_daily.index = pd.to_datetime(sc_daily.index)
+mst_daily.index = pd.to_datetime(mst_daily.index)
+sc_daily = sc_daily.sort_index()
+mst_daily = mst_daily.sort_index()
+
+# 5) 欠けている日を補完（その天候が無い日はNaNのままにするのが自然）
+all_days = pd.date_range(
+    min(sc_daily.index.min(), mst_daily.index.min()),
+    max(sc_daily.index.max(), mst_daily.index.max()),
+    freq="D",
+)
+sc_daily = sc_daily.reindex(all_days)
+mst_daily = mst_daily.reindex(all_days)
+
+# 6) ヒストグラム（日次平均交通量の分布）
 plt.figure(figsize=(12, 4))
 plt.subplot(1, 2, 1)
-plt.hist(sc, bins=50)
-plt.title("scattered clouds")
+plt.hist(sc_daily.dropna(), bins=50)
+plt.title("scattered clouds (daily mean)")
 plt.subplot(1, 2, 2)
-plt.hist(hz, bins=50)
-plt.title("haze")
+plt.hist(mst_daily.dropna(), bins=50)
+plt.title("mist (daily mean)")
 plt.show()
 
-# ACF（自己相関）
+# 7) ACF（自己相関：日次系列としての依存を見る）
 fig, axes = plt.subplots(1, 2, figsize=(15, 5))
-plot_acf(sc, lags=72, title="ACF - scattered clouds", ax=axes[0])
-plot_acf(hz, lags=72, title="ACF - haze", ax=axes[1])
+plot_acf(
+    sc_daily.dropna(),
+    lags=150,
+    title="ACF - scattered clouds (daily mean)",
+    ax=axes[0],
+    marker=None,
+)
+plot_acf(
+    mst_daily.dropna(),
+    lags=150,
+    title="ACF - mist (daily mean)",
+    ax=axes[1],
+    marker=None,
+)
 plt.show()
 
 # %% [markdown]
 """
-この結果から、2つの標本に極端な分布の偏りがないこと、自己相関がないことを確認できたので、予定通りウェルチのt検定をおこない、
-有意差があるかどうかを検証していく。
+補足として、日次平均交通量の ACF を“日ラグ”として解釈できるかを確認する。
+
+日次平均系列は index 自体は日次等間隔に揃えられる一方、
+天候でフィルタした場合「その天候が発生した日」だけが観測されるため、
+dropna() した系列は日付が間引かれている可能性がある。
+
+そこで、(1) reindex 後の index が日次等間隔であること、
+(2) dropna() 後の“実データ点”がどの程度連続しているか（= 日付の飛びがどの程度あるか）
+をチェックする。
 """
 # %%
-# データの抽出（交通量だけを抜き出す）
-scattered = day_time.loc[
-    day_time["weather_description"] == "scattered clouds", "traffic_volume"
-]
-haze = day_time.loc[day_time["weather_description"] == "haze", "traffic_volume"]
+
+
+def check_daily_series(name, s):
+    # 1) reindex後のindexが日次等間隔か（NaN含む全体でチェック）
+    diffs_full = s.index.to_series().diff().dropna()
+    is_daily_full = diffs_full.eq(pd.Timedelta(days=1)).all()
+
+    # 2) dropna後に日付が飛び飛びになっていないか（ACFに入れる実データ側）
+    s_nonan = s.dropna()
+    diffs_nonan = s_nonan.index.to_series().diff().dropna()
+    top_diffs = diffs_nonan.value_counts().head(5)
+
+    print(f"\n[{name}]")
+    print("Full index is daily spacing (after reindex)?", is_daily_full)
+    print("Non-NaN count:", len(s_nonan), "/", len(s))
+    print("Top time gaps in non-NaN dates:")
+    print(top_diffs)
+
+    # 「lag=1を1日」と読める度合い（非NaN日付の隣接差分が1日である割合）
+    if len(diffs_nonan) > 0:
+        ratio_1day = diffs_nonan.eq(pd.Timedelta(days=1)).mean()
+        print("1-day gap ratio in non-NaN dates:", round(float(ratio_1day), 3))
+    else:
+        print("Not enough non-NaN points to assess gaps.")
+
+
+check_daily_series("sc_daily", sc_daily)
+check_daily_series("mst_daily", mst_daily)
+
+# %% [markdown]
+"""
+チェック結果より、index 自体は日次等間隔だが、`dropna()` 後（= 天候が観測された日）では日付の飛びが無視できない。
+実際、非欠損の観測日は `sc_daily` が 621/2188、`mst_daily` が 426/2188 で、
+連続した 1 日間隔の割合もそれぞれ 0.618、0.569 に留まっていた。
+
+このため、`dropna()` 後の系列で ACF を取ると lag=1 が「翌日」を意味しない可能性があり、
+日ラグ自己相関（独立性）の厳密な確認には不向きである。
+
+そこで、曜日×時間帯の平均パターンを差し引いた残差系列を用意し、残差ACFで短期依存を確認する。
+"""
+# %%
+tmp = warm_season_daytime.copy()
+tmp = tmp.sort_values("date_time")
+
+tmp["hour"] = tmp["date_time"].dt.hour
+tmp["weekday"] = tmp["date_time"].dt.dayofweek  # 0=Mon
+
+# 時間帯×曜日の期待値（ベースライン）を引いて残差化
+baseline = tmp.groupby(["weekday", "hour"])["traffic_volume"].transform("mean")
+tmp["resid"] = tmp["traffic_volume"] - baseline
+
+# 天候別の残差系列（観測順に並んだ“残差”）を取り出す
+sc_resid = tmp.loc[tmp["weather_description"] == "scattered clouds", "resid"].dropna()
+mst_resid = tmp.loc[tmp["weather_description"] == "mist", "resid"].dropna()
+
+# ACF（残差に自己相関が強く残ってないか）
+fig, axes = plt.subplots(1, 2, figsize=(15, 5))
+plot_acf(
+    sc_resid,
+    lags=300,
+    ax=axes[0],
+    title="ACF of residuals - scattered clouds",
+    marker=None,
+)
+plot_acf(mst_resid, lags=300, ax=axes[1], title="ACF of residuals - mist", marker=None)
+plt.show()
+
+# %% [markdown]
+"""
+残差ACFの結果、短ラグでは一定の自己相関が残るものの、ラグが進むにつれて減衰し、
+長期にわたって強い依存が支配的であるとは言いにくい形状だった。
+時系列データにおける完全な独立性の仮定は難しいものの、
+強い自己相関による検定への悪影響は限定的であると判断できる。
+
+この前提のもと、等分散を仮定しない Welch の t 検定により、
+`scattered clouds` と `mist` の平均交通量の差が統計的に有意かどうかを検証する。
+"""
+# %%
 
 # Pythonの数値リストをRのベクトルに変換
-r_scattered = FloatVector(scattered.tolist())
-r_haze = FloatVector(haze.tolist())
+r_scattered = FloatVector(sc_daily.tolist())
+r_mist = FloatVector(mst_daily.tolist())
 
 # Welchのt検定を実行
-t_test = ro.r["t.test"](r_scattered, r_haze)
+t_test = ro.r["t.test"](r_scattered, r_mist)
 
 """
 Rの生出力をそのまま表示したい場合は、以下のコメントアウトを外して実行
@@ -1217,11 +1352,11 @@ conf_interval = list(t_test.rx2("conf.int"))
 means = list(t_test.rx2("estimate"))
 
 # 見やすいフォーマットで出力
-print("Welch's t-test: scattered clouds vs haze")
+print("Welch's t-test: scattered clouds vs mist")
 print(f" t(df = {df:.1f}) = {t_value:.3f}, p = {p_value:.3g}")
 print(f" 95% CI: [{conf_interval[0]:.2f}, {conf_interval[1]:.2f}]")
 print(f" mean(scattered clouds) = {means[0]:.2f}")
-print(f" mean(haze) = {means[1]:.2f}")
+print(f" mean(mist) = {means[1]:.2f}")
 
 # %% [markdown]
 r"""
@@ -1229,47 +1364,57 @@ r"""
 
 $$
 \begin{align}
- & H_0:\ \text{scattered clouds と hazeの母平均に差はない} \\
- & H_1:\ \text{scattered clouds と haze の母平均に差がある} \\
- & \text{Test stat: } t = 6.431 \quad (\mathrm{df} = 1588.5) \\
- & \text{p-value: } 1.673 \times 10^{-10} \\
- & \text{Decision: 有意水準 } 5\% (\alpha = 0.05) \text{ で統計的に有意} \\
- & \text{Conclusion: P値が非常に小さいこと、95\%信頼区間が [207.9, 390.4] と} \\
- & \text{\qquad 0 を含まないため、明確な有意差が認められる。}
+ & H_0:\ \mu_{\text{scattered}} - \mu_{\text{mist}} = 0 \\
+ & H_1:\ \mu_{\text{scattered}} - \mu_{\text{mist}} \neq 0 \\
+ & \text{Test stat: } t = 4.181 \quad (\mathrm{df} = 678.4) \\
+ & \text{p-value: } 1.75 \times 10^{-3} \\
+ & \text{Decision: 有意水準 } 5\% (\alpha = 0.05) \text{ で } H_0 \text{ を棄却} \\
+ & \text{Conclusion: 95\%信頼区間が [105.69, 458.07] と 0 を含まないため、} \\
+ & \text{\qquad 平均交通量に統計的に有意な差が認められる。}
 \end{align}
 $$
 
-よって、検定の結果、P値は極めて小さく、2つの天候における平均交通量の差が統計的に有意であることが判明した。
-しかし、サンプルサイズが大きいがために自由度も大きく(df=1588.5)、故に検出力が強くなってしまっていることが想像できる。
-また、平均値の差は約300台（約6%）に留まっており、これが今回のマーケティング施策において直ちに対策が必要かどうかは
-コストとの兼ね合いで判断すべきかと思われる。
+検定の結果、p値は 0.05 を下回り、2つの天候における平均交通量の差は統計的に有意であることが確認できた。
+ただし、標本サイズが大きいと検出力が高くなるため、差が小さくても有意になりやすい点には留意が必要である。
+また、平均値の差は約282台（約5.7%）に留まっており、この差が今回のマーケティング施策において直ちに対策すべきものどうかは、
+施策コストや期待できるインプレッション増加率等との兼ね合いで判断すべきである。
 """
 # %% [markdown]
 """
-これまでの結果を踏まえると、セル［23］の10種類の天候のうち、曇りや小雨のときに比較的交通量が多くなる傾向があり、
+これまでの結果を踏まえると、セル［23］の10種類の天候のうち、曇りや小雨のときに多少交通量が多くなる傾向があり、
 視界不良に関連する天候（`haze`や`mist`）が起きやすい日は有意差約6%で平均交通量が少なくなる。
 """
 # %% [markdown]
 """
 よって、広告効果を最大化するためには、可能であれば
 
-- 交通量が比較的多くなる`scatterd clouds`の時期に集中投下したい
+- 交通量が比較的多くなる`scattered clouds`の時期に集中投下したい
 - 交通量が比較的少なくなる`haze`, `mist`の時期を極力避けたい
 
 なので、これから「特定の天候になりやすい時期はあるのか」を調べていく。
 まずは、ACFを作成し、各天候の自己相関の度合から周期性が見られるかどうかを確認する。
 """
 # %%
+
+# 日付×天候ごとに出現回数を数えて、行=日付 / 列=天候 の日次カウント表に変換
 daily_counts = (
     i_94.groupby(["date_only", "weather_description"])
     .size()
     .unstack("weather_description")
-    .fillna(0)
+    .fillna(0)  # その日その天候の出現が無い（NaN）部分を0回として扱う
 )
+
+# 念のために日付をDatetimeIndexに変換してソートして時系列の順序を保証
+daily_counts.index = pd.to_datetime(daily_counts.index)
+daily_counts = daily_counts.sort_index()
+
+# 欠けている日を埋めて、等間隔の日次系列を保証
+all_days = pd.date_range(daily_counts.index.min(), daily_counts.index.max(), freq="D")
+daily_counts = daily_counts.reindex(all_days, fill_value=0)
 
 acf_weathers = ["scattered clouds", "haze", "mist"]
 fig, axes = plt.subplots(1, len(acf_weathers), figsize=(18, 4), sharey=True)
-lags = 900  # 4~10月の180日× 5で「5年分のサンプル」を確認する
+lags = 900
 
 for ax, w in zip(axes, acf_weathers):
     if w not in daily_counts.columns:
@@ -1279,6 +1424,32 @@ for ax, w in zip(axes, acf_weathers):
     ax.set_title(f"ACF of daily counts: {w}")
     ax.set_xlabel("Lag(days)")
 
+# %% [markdown]
+"""
+上記の結果を解釈する前に、念のために、天候ごとに抽出したデータが等間隔（例：1日刻み）の時系列として扱えるかを確認する。
+ACFの解釈は、等間隔の時系列データであることが前提となるためだ。
+"""
+# %%
+
+# 日次の等間隔チェック（隣接差分がすべて1日か）
+diffs = daily_counts.index.to_series().diff()
+print(diffs.value_counts().head(5))
+print("All daily spacing?", diffs.dropna().eq(pd.Timedelta(days=1)).all())
+
+# 1行=1日になっているか（date range と行数の整合）
+n_days = len(daily_counts)
+days_span = (daily_counts.index.max() - daily_counts.index.min()).days
+print("n_days =", n_days)
+print("date range:", daily_counts.index.min(), "->", daily_counts.index.max())
+print("days span:", days_span)
+print("n_days == days_span + 1 ?", n_days == days_span + 1)
+
+# %% [markdown]
+"""
+確認の結果、日付は1日刻みで欠けなく並んでおり（`All daily spacing = True`）、
+daily_counts は日次の等間隔系列として扱える。
+したがって、ACFの lag=1 は「1日遅れ」として解釈できる。
+"""
 # %% [markdown]
 r"""
 ACFの出力の結果、
@@ -1298,20 +1469,15 @@ r"""
 その中で各天候が観測された回数を月ごと・時間帯ごとに集計し、ヒートマップで可視化する。
 """
 # %%
+
 # 暖かい時期 & 日中 （例: 4〜10月 / 6〜18時）に絞ってデータを抽出
-warm_daytime = i_94[
-    (i_94["date_time"].dt.month.between(4, 10))
-    & (i_94["date_time"].dt.hour.between(6, 18))
-].copy()
-
-warm_daytime["month"] = warm_daytime["date_time"].dt.month
-warm_daytime["hour"] = warm_daytime["date_time"].dt.hour
-
 target_weathers = ["scattered clouds", "haze", "mist"]
 
 
 def plot_weather_heatmap(weather, normalize=True):
-    df = warm_daytime[warm_daytime["weather_description"] == weather].copy()
+    df = warm_season_daytime[
+        warm_season_daytime["weather_description"] == weather
+    ].copy()
 
     # その天気が観測された回数
     counts = (
@@ -1325,7 +1491,7 @@ def plot_weather_heatmap(weather, normalize=True):
     if normalize:
         # ベース：全天気での観測回数
         base = (
-            warm_daytime.groupby(["month", "hour"])
+            warm_season_daytime.groupby(["month", "hour"])
             .size()
             .unstack("hour")
             .reindex(index=range(4, 11), columns=range(6, 19))
@@ -1474,7 +1640,7 @@ r"""
  ことがわかった。
 
 - カテゴリ変数としての `weather_main` / `weather_description` を用いた分析では、
- 快晴よりも、**曇りや小雨、霧なども含めた「やや悪天候」のときに交通量が多い**傾向 が見られた。
+ 快晴よりも、**曇りや小雨など「やや悪天候」のときに交通量が多い**傾向 が見られた。
 
 - 一方で、`haze` や `mist` など**視界不良となる天候では平均交通量が比較的低い**
 
@@ -1512,16 +1678,24 @@ Welch の t 検定を行った結果、
 特に、`scattered clouds`の発生頻度の分析の結果は、これまでの「時間的要因と交通量の分析」で示された洞察と整合的であり、
 「暖かい季節の夕方に交通量が多くなる」という傾向を補強するものとなった。
 
+最終確認として、日中データ全体における月別の交通量の中央値を計算し、平均値ベースの分析結果と比較したところ、
+中央値に基づく分析でも、**暖かい季節（4〜10月）に交通量が多くなる**傾向が確認できた。
+平均値ベースと中央値ベースの分析では、交通量が多い月の順位に若干の違いがあったが、
+いずれにせよ、**4〜10月をターゲットにすることは前提となる**だろう。
+そのうえで、何月に施策の予算を多く割り当てるかは、保守的な姿勢（中央値ベース）ととるか、積極的な
+姿勢（期待値ベース）ととるかによって変わってくるため、マーケティング部門の方針次第となるだろう。
+
 ---
 
 ### 3. 広告戦略の観点での示唆
 
 広告配信設計としては、「4〜10月の暖かい季節」に出稿することが最優先事項となる。ミネソタ州の厳しい冬季を避けるためである。
+この際、その中でもどの月に重点的に配信するかは、広告予算とリスク許容度に応じて決定すべきである。
 
 また、以下の点を考慮することで、広告効果を最大化できると考えられる。
-1. 「週末よりも平日に重点的に配信する」
-2. 「平日の中でも特に木・水・金に重点的に配信する」
-3. 「1日の中でも特に夕方15〜18時台に集中的に配信する」
+1. 「 **週末よりも平日** に重点的に配信する」
+2. 「平日の中でも特に **木・水・金** に重点的に配信する」
+3. 「1日の中でも特に **夕方15〜18時台** に集中的に配信する」
 
 そのうえで、予算とスケジュールに余裕がある場合は、
 「曇りや小雨のときに配信を強化し、視界不良となる天候（haze, mist）のときは配信を控える」など、天候APIを活用した戦略も
