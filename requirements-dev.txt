@@ -1,0 +1,2 @@
+# for notebook kernel tools (optional)
+ipykernel==7.1.0
