@@ -1620,8 +1620,8 @@ display(compare_full.sort_values("trim_median", ascending=False))
 """
 # %% [markdown]
 r"""
-<a id="conclusion"></a>
-## まとめ
+
+## まとめ<span id="conclusion"></span>
 
 本プロジェクトでは、I‑94州間高速道路（西行き）の交通量データを用いて、
 デジタルビルボードの広告効果を高めるために、
