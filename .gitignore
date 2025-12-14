@@ -21,7 +21,7 @@ venv/
 env/
 
 # ---- ipynb, HTML 出力 ----
-# *.html
+*.html
 .ipynb_checkpoints/
 
 
