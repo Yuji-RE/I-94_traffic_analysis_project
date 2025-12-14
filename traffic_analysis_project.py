@@ -87,7 +87,7 @@ i_94.info()
 # %% [markdown]
 """
 <a id="data_processing"></a>
-## Data Processing and Initial Visualization
+## データの前処理
 
 まずは、日付データが文字列になっているので、後で混乱しないように早めに `datetime64型`に変換する。
 この際、日付データは既に現地時間で集計されているため、UTCによる標準化→現地時間変換の作業は必要ない。
@@ -1621,8 +1621,8 @@ display(compare_full.sort_values("trim_median", ascending=False))
 """
 # %% [markdown]
 r"""
-
-## まとめ<span id="conclusion"></span>
+<a id="conclusion"></a>
+## まとめ
 
 本プロジェクトでは、I‑94州間高速道路（西行き）の交通量データを用いて、
 デジタルビルボードの広告効果を高めるために、
