@@ -7962,7 +7962,7 @@ memory usage: 3.3+ MB
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><a id="data_processing"></a></p>
+<p><a id="processing"></a></p>
 <h2 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%89%8D%E5%87%A6%E7%90%86">データの前処理<a class="anchor-link" href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%89%8D%E5%87%A6%E7%90%86">¶</a></h2><p>まずは、日付データが文字列になっているので、後で混乱しないように早めに <code>datetime64型</code>に変換する。
 この際、日付データは既に現地時間で集計されているため、UTCによる標準化→現地時間変換の作業は必要ない。</p>
 <p>また、本分析の主体となる<code>traffic_volume</code>について、分布を視覚的に捉えるために、ヒストグラムを作成する。</p>
