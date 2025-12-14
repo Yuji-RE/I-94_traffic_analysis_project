@@ -20,7 +20,7 @@
 *   **ミッション:** 交通量データを分析し、「交通量が最も多くなる日時・条件（＝広告のゴールデンタイム）」を特定し、コスパの高い配信プランを提案する
 
 ##### 分析フロー
-1. [**データの概要把握**](index.html#overview)
+1. [**データの概要把握**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#overview)
 2. [**Data Processing**](#data-processing)
 3. [**Time Indicators**](#time-indicators)
     - [Relationship between Month and Traffic Volume](#relationship-between-month-and-traffic-volume)
