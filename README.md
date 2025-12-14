@@ -22,16 +22,16 @@
 というシナリオ設定の下、探索的データ分析(EDA)を実施する。
 
 ##### 分析フロー
-1. **データの概要把握**
-2. **データ前処理**
-3. **時間的要因と交通量の関係性の分析**
-    - 月と交通量の関係性の分析
-    - 曜日と交通量の関係性の分析
-    - 時間帯と交通量の関係性の分析
-4. **気象条件と交通量の関係性の分析**
-    - 気温と交通量の関係性の分析
-    - 天候と交通量の関係性の分析
-5. **結論とまとめ**
+1. [**Overview of the Dataset**](#overview-of-the-dataset)
+2. [**Data Processing**](#data-processing)
+3. [**Time Indicators**](#time-indicators)
+    - [Relationship between Month and Traffic Volume](#relationship-between-month-and-traffic-volume)
+    - [Relationship between Day of the Week and Traffic Volume](#relationship-between-day-of-the-week-and-traffic-volume)
+    - [Relationship between Time of Day and Traffic Volume](#relationship-between-time-of-day-and-traffic-volume)
+4. [**Weather Conditions**](#weather-conditions)
+    - [Relationship between Temperature and Traffic Volume](#relationship-between-temperature-and-traffic-volume)
+    - [Relationship between Weather and Traffic Volume](#relationship-between-weather-and-traffic-volume)
+5. [**Conclusion and Summary**](#conclusion-and-summary)
 
 ## ✨ 要点サマリー
 
@@ -72,14 +72,14 @@
 
 ### 【技術的振り返り・改善点】
 
-- **欠損を含む時系列データ扱い**: “標本サイズの大きさを過信して、欠損値による影響を過小評価して分析してしまった”
-    時系列補間や類似パターンによる補完などの技術を適用し、影響を最小限に抑える処理が必要
+- **欠損を含む時系列データ扱い**: “標本サイズの大きさを過信して、欠損値による影響を過小評価して分析してしまった”  
+   → 時系列補間や類似パターンによる補完などの技術を適用し、影響を最小限に抑える処理が必要
 
-- **多変量解析へのステップアップ**: “「時間帯」と「気象条件」をそれぞれ独立した要因として交通量との関係を分析してしまった”
-    交通量の分析において「天気と時間」は独立でないため、こうした交絡因子を制御できる重回帰モデルによる要因分析を検討する
+- **多変量解析へのステップアップ**: “「時間帯」と「気象条件」をそれぞれ独立した要因として交通量との関係を分析してしまった”  
+   → 交通量の分析において「天気と時間」は独立でないため、こうした交絡因子を制御できる重回帰モデルによる要因分析を検討する
 
-- **統計的厳密性の向上**: “第一種の過誤のリスクが高まるにも関わらず、棒グラフで差がみられたペアに対してt検定（事後検定）を行ってしまった”
-    分散分析や多重比較法など、より厳密な検定手法の習得が必要
+- **統計的厳密性の向上**: “第一種の過誤のリスクが高まるにも関わらず、棒グラフで差がみられたペアに対してt検定（事後検定）を行ってしまった”  
+   → 分散分析や多重比較法など、より厳密な検定手法の習得が必要
 
 
 ※「傾向把握」を目的としたEDAフェーズでは許容範囲になり得るが、将来的に厳密なモデル構築や分散評価を行う際は、これらの点に注意すべきである
@@ -91,7 +91,7 @@
 
 - ビジネスインパクトを直感的に伝えるために、効果量の算出など、具体的数値の提示を増やす
 - 「欠損・外れ値の扱い」について、明確な基準を設け、ルールやポリシーを定義する
-- 再利用性、readibility向上のためのコードの関数化
+- 再利用性、testability、readibility向上のためのコードの関数化
 - 回帰でも分類でも、「モデル」をひとつ取り入れる（EDA→ 前処理→ モデル作成→ 評価 までを一通り通しでやる）
 
 ---
@@ -132,7 +132,7 @@ pip install -r requirements-dev.txt
 
 ---
 
-※ 本プロジェクトは[Dataquestのガイド付きプロジェクト"Finding Heaviy Traffic Indicators on I-94"](https://github.com/dataquestio/solutions/blob/master/Mission524Solutions.ipynb)をベースにしています。
+※ 本プロジェクトはDataquestのガイド付きプロジェクト["Finding Heaviy Traffic Indicators on I-94"](https://github.com/dataquestio/solutions/blob/master/Mission524Solutions.ipynb)をベースにしています。
 
 ###### 【ガイドに沿って実装したもの】（主に前半部分）
 - データ分析の目的

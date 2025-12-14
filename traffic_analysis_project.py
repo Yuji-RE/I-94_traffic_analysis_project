@@ -2,8 +2,9 @@
 # ruff: noqa: E402
 # %% [markdown]
 """
-## データを読み込んで概要を把握する
+## Overview of the Dataset
 
+今回使用するデータセットは、米国ミネソタ州のI-94高速道路における交通量データである。
 まずは、今回使用する主要ライブラリをインポートし、データセットのCSVファイルを読み込む。
 
 Scipyの代わりにrpy2を使う理由としては、信頼区間や自由度までデフォルトで出力してくれるため中身が確認しやすく、
@@ -84,7 +85,7 @@ i_94.info()
 """
 # %% [markdown]
 """
-## データ前処理
+## Data Processing and Initial Visualization
 
 まずは、日付データが文字列になっているので、後で混乱しないように早めに `datetime64型`に変換する。
 この際、日付データは既に現地時間で集計されているため、UTCによる標準化→現地時間変換の作業は必要ない。
@@ -143,7 +144,7 @@ i_94.corr(numeric_only=True)["traffic_volume"].sort_values(ascending=False)
 """
 # %% [markdown]
 """
-### 日中と夜間の交通量の分布比較
+#### 日中と夜間の交通量の分布比較
 
 両者の分布を知るにあたって、前処理として`i_94`データセットを2つの時間帯「日中」と「夜間」のデータセットに分割していく。
 そのあと、作成した2つのヒストグラムを比較対照する。
@@ -223,13 +224,13 @@ display(summary)
 """
 # %% [markdown]
 """
-## 交通量と時間的要因
+## Time Indicators
 
 これより、交通量との相関が示唆された「時間的要因」についてさらなる深堀を行っていく。
 """
 # %% [markdown]
 """
-### 月と交通量の関係
+### Relationship between Month and Traffic Volume
 
 まずは、季節変動を掴むために、月ごとの交通量の平均を求めて折れ線グラフで表示する。
 """
@@ -419,7 +420,7 @@ plt.show()
 """
 # %% [markdown]
 """
-### 曜日と交通量の関係
+### Relationship between Day of the Week and Traffic Volume
 
 現時点で、「月（季節）と交通量の関係」がわかっているので、次のステップとして、「曜日と交通量の関係性」について調べていく。
 
@@ -561,7 +562,7 @@ plt.tight_layout()
 """
 # %% [markdown]
 """
-### 曜日と交通量の関係
+### Relationship between Time of the Day and Traffic Volume
 
 気を取り直して、曜日ごとの平均交通量をプロットしたグラフを作成し、「どの曜日に一番交通量が多くなるのか」
 という問いに答えていく。
@@ -636,7 +637,7 @@ plt.show()
 """
 # %% [markdown]
 """
-### 時間帯と交通量の関係
+### Relationship between Hour of the Day and Traffic Volume
 
 次は、一日の中でも特に交通量が多い時間帯を特定するために、時間帯ごとの平均交通量を比較していく。
 これまでの分析で平日の方が交通量が多いことが分かっているため、本来は平日のグラフのみをプロットすればよいが、
@@ -706,7 +707,7 @@ plt.show()
 """
 # %% [markdown]
 """
-### 時間的要因の分析結果まとめ
+### Quick Summary: Temporal Indicators and Traffic Volume
 
 これまでの時間的要因について分析した結果をまとめると、次のようなことが分かった。
 
@@ -717,11 +718,16 @@ plt.show()
 """
 # %% [markdown]
 """
-## 交通量と気象条件
+## Weather Conditions
 
 これまでは、`date_time`に関して、交通量がピークを迎える傾向にある条件を特定した。<br>
 これからは、これからは気象条件を軸に交通量との関係性を分析していく。
+"""
+# %% [markdown]
+"""
+### Relationship between Temperature and Traffic Volume
 
+まずは、量的データを扱うカラムである`temp`（気温）と交通量の関係性を調べていく。
 セル［5］で出力したデータセットの量的データにおける交通量との相関係数のうち、`temp`は約0.1と相関が弱いが、
 量的データにおける気象カテゴリの中ではトップの項目なので、念のために可視化してみる。
 
@@ -751,6 +757,7 @@ plt.show()
 """
 # %% [markdown]
 """
+### Relationship between Weather and Traffic Volume
 気象条件に関して、質的データを扱うカラムは二つある。
 
 - `wheather_main`: 天気の種類（大まかな分類）
@@ -1612,8 +1619,7 @@ display(compare_full.sort_values("trim_median", ascending=False))
 """
 # %% [markdown]
 r"""
-<a id="conclusion"></a>
-## まとめ
+## Conclusion and Summary
 
 本プロジェクトでは、I‑94州間高速道路（西行き）の交通量データを用いて、
 デジタルビルボードの広告効果を高めるために、
