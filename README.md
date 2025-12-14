@@ -29,7 +29,7 @@
 4. [**Weather Conditions**](#weather-conditions)
     - [Relationship between Temperature and Traffic Volume](#relationship-between-temperature-and-traffic-volume)
     - [Relationship between Weather and Traffic Volume](traffic_analysis_project.ipynb#relationship-between-weather-and-traffic-volume)
-5. [**Conclusion and Summary**](traffic_analysis_project.ipynb#conclusion-and-summary)
+5. [**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)
 
 ## ✨ 要点サマリー
 
