@@ -11,15 +11,13 @@
 
 ## 🚀 プロジェクト概要
 
-本プロジェクトでは、John Hogue氏より提供されている[Interstate 94 westbound; 州間高速道路94号線西行き](https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume)のパブリックデータセットを用いて、
+本プロジェクトでは、John Hogue氏より提供されている[Interstate 94 westbound; 州間高速道路94号線西行き](https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume)のパブリックデータセットを用いて、下記のシナリオ設定のもと探索的データ分析(EDA)を実施する。
 
 *   **役割:** マーケティング部 データアナリスト
 *   **目的:** 新作ゲーム『データクエスト・ロワイヤル』の認知最大化
 *   **施策:** I-94高速道路（西行き）のデジタルビルボード広告出稿
 *   **課題:** 限られた予算で最大の広告効果を得るため、24時間放映ではなく、最適な放映タイミングを見極める
 *   **ミッション:** 交通量データを分析し、「交通量が最も多くなる日時・条件（＝広告のゴールデンタイム）」を特定し、コスパの高い配信プランを提案する
-
-というシナリオ設定の下、探索的データ分析(EDA)を実施する。
 
 ##### 分析フロー
 1. [**Overview of the Dataset**](#overview-of-the-dataset)
@@ -30,14 +28,14 @@
     - [Relationship between Time of Day and Traffic Volume](#relationship-between-time-of-day-and-traffic-volume)
 4. [**Weather Conditions**](#weather-conditions)
     - [Relationship between Temperature and Traffic Volume](#relationship-between-temperature-and-traffic-volume)
-    - [Relationship between Weather and Traffic Volume](#relationship-between-weather-and-traffic-volume)
-5. [**Conclusion and Summary**](#conclusion-and-summary)
+    - [Relationship between Weather and Traffic Volume](traffic_analysis_project.ipynb#relationship-between-weather-and-traffic-volume)
+5. [**Conclusion and Summary**](traffic_analysis_project.ipynb#conclusion-and-summary)
 
 ## ✨ 要点サマリー
 
 分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。
 
-##### 【最優先戦略：配信タイミングの最適化】
+### 【最優先戦略：配信タイミングの最適化】
 
 基本的な配信スケジュールの指針
 
@@ -48,7 +46,7 @@
 
 → **結論として、平日の夕方ラッシュ時（特に暖かい季節）をコアターゲットとする配信戦略が最も効果的である。**
 
-##### 【発展戦略：気象条件との連動（API活用など）】
+### 【発展戦略：気象条件との連動（API活用など）】
 
 さらなる効果改善を図る場合
 
@@ -58,7 +56,9 @@
 → 予算とスケジュールに余裕があれば、天候データと連動した動的配信も検討可能。
   しかし、天候条件による交通量変化の効果量は小さく、実運用でのコスト対効果を慎重に評価する必要がある。
 
-* より詳細なまとめは、[ノートブックのまとめセクション](traffic_analysis_project.ipynb#conclusion)を参照
+* より詳細なまとめは、[ノートブックのまとめセクション](traffic_analysis_project.html#conclusion)を参照
+
+---
 
 ### 【Next Steps】
 
@@ -69,6 +69,8 @@
     * I-94高速道路の利用者層（ **属性・利用パターン** ）を把握し、ターゲットと重なる層が広告を目にする確率が高い条件を特定する
     * さらに、別軸として **「どの条件で広告を見たとき購買意欲が高まるか」** を検討する。
     * 因果に踏み込むには、**先行研究**や**SNS等のリアルタイム情報**を参照しつつ、定量・定性データを **行動経済学／社会心理学**の観点での分析も検討
+
+---
 
 ### 【技術的振り返り・改善点】
 
