@@ -8,6 +8,9 @@
         - ACF（残差など）
         - Welchのt検定
     - ウェブリサーチ
+- **プロジェクトファイル**:
+    - [`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb)
+    - [`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
 
 
 ## 🚀 プロジェクト概要
