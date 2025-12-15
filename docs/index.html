@@ -7537,7 +7537,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8ed1bb9f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7547,7 +7547,8 @@ a.anchor-link {
 <h2 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%A6%82%E8%A6%81%E6%8A%8A%E6%8F%A1">データの概要把握<a class="anchor-link" href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%A6%82%E8%A6%81%E6%8A%8A%E6%8F%A1">¶</a></h2><p>今回使用するデータセットは、米国ミネソタ州のI-94高速道路における交通量データである。
 まずは、今回使用する主要ライブラリをインポートし、データセットのCSVファイルを読み込む。</p>
 <p>Scipyの代わりにrpy2を使う理由としては、信頼区間や自由度までデフォルトで出力してくれるため中身が確認しやすく、
-自分の統計レベル（統計検定2級程度）とより合っているツールだと思ったためである。</p>
+自分の統計レベル（統計検定2級程度）とより合っているツールだと思ったためである。R依存なので再現性の観点では注意が必要だが、
+今回は個人プロジェクトなので問題ないと判断した。</p>
 <p>個人的な好みではあるが、データの概要をつかむ際は、複数セルに分けて出力するよりも、
 1つの出力領域にまとめた方がスクロールの手間なく全体を一目で把握できて効率的に思える。
 そのため、あえて繋げて1つのセルに統合している。</p>
@@ -7950,7 +7951,7 @@ memory usage: 3.3+ MB
 <li>平均値(3259)と中央値(3380)でズレが小さいので、歪みは小さいと考えられる</li>
 <li>標準偏差(1986)が平均値の約60%を占めており、変動がかなり大きいと考えられる</li>
 </ol>
-<p>※ <code>traffic_volume</code>を目的変数とし、他の「時間」や「気象条件」を示すデータを説明変数として分析する。<br/>
+<p>※ <code>traffic_volume</code>を目的変数とし、他の「時間」や「気象条件」を示すデータを説明変数として分析する。
 よって、分布に着目すべきデータは<code>traffic_volume</code>カラムのデータであることがわかる。</p>
 </div>
 </div>
@@ -8382,7 +8383,7 @@ Name: traffic_volume, dtype: float64</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Time-Indicators">Time Indicators<a class="anchor-link" href="#Time-Indicators">¶</a></h2><p>これより、交通量との相関が示唆された「時間的要因」についてさらなる深堀を行っていく。</p>
+<h2 id="%E6%99%82%E9%96%93%E7%9A%84%E8%A6%81%E5%9B%A0%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">時間的要因と交通量の関係性の分析<a class="anchor-link" href="#%E6%99%82%E9%96%93%E7%9A%84%E8%A6%81%E5%9B%A0%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">¶</a></h2><p>これより、交通量との相関が示唆された「時間的要因」についてさらなる深堀を行っていく。</p>
 </div>
 </div>
 </div>
@@ -8393,7 +8394,7 @@ Name: traffic_volume, dtype: float64</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Relationship-between-Month-and-Traffic-Volume">Relationship between Month and Traffic Volume<a class="anchor-link" href="#Relationship-between-Month-and-Traffic-Volume">¶</a></h3><p>まずは、季節変動を掴むために、月ごとの交通量の平均を求めて折れ線グラフで表示する。</p>
+<h3 id="%E6%9C%88%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">月と交通量の関係性の分析<a class="anchor-link" href="#%E6%9C%88%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">¶</a></h3><p>まずは、季節変動を掴むために、月ごとの交通量の平均を求めて折れ線グラフで表示する。</p>
 </div>
 </div>
 </div>
@@ -8744,7 +8745,7 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Relationship-between-Day-of-the-Week-and-Traffic-Volume">Relationship between Day of the Week and Traffic Volume<a class="anchor-link" href="#Relationship-between-Day-of-the-Week-and-Traffic-Volume">¶</a></h3><p>現時点で、「月（季節）と交通量の関係」がわかっているので、次のステップとして、「曜日と交通量の関係性」について調べていく。</p>
+<h3 id="%E6%9B%9C%E6%97%A5%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">曜日と交通量の関係性の分析<a class="anchor-link" href="#%E6%9B%9C%E6%97%A5%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">¶</a></h3><p>現時点で、「月（季節）と交通量の関係」がわかっているので、次のステップとして、「曜日と交通量の関係性」について調べていく。</p>
 <p>曜日は7項目（月～日）あるので、同一のキャンバスに描くとぐちゃぐちゃして見にくい。かといってすべて異なるキャンバスに描いても
 比較対照しずらい。
 解決策としては、曜日の中でも「平日」「週末」に分割して、それぞれの平均を算出して比較することだが、個人的には最初は全体像を
@@ -8946,7 +8947,7 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Relationship-between-Time-of-the-Day-and-Traffic-Volume">Relationship between Time of the Day and Traffic Volume<a class="anchor-link" href="#Relationship-between-Time-of-the-Day-and-Traffic-Volume">¶</a></h3><p>気を取り直して、曜日ごとの平均交通量をプロットしたグラフを作成し、「どの曜日に一番交通量が多くなるのか」
+<h3 id="%E6%9B%9C%E6%97%A5%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%86%8D%E5%88%86%E6%9E%90">曜日と交通量の関係性の再分析<a class="anchor-link" href="#%E6%9B%9C%E6%97%A5%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%86%8D%E5%88%86%E6%9E%90">¶</a></h3><p>気を取り直して、曜日ごとの平均交通量をプロットしたグラフを作成し、「どの曜日に一番交通量が多くなるのか」
 という問いに答えていく。</p>
 <p>セル［15］のグラフ結果は平滑化により変動が抑えられており、曜日ごとの平均交通量の差が視覚的に捉えにくい。
 そこでこれから、平均交通量が最大値を記録する地点を赤色のマーカーと罫線で強調表示し、「最多平均交通量をもつ曜日」が
@@ -9054,7 +9055,7 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Relationship-between-Hour-of-the-Day-and-Traffic-Volume">Relationship between Hour of the Day and Traffic Volume<a class="anchor-link" href="#Relationship-between-Hour-of-the-Day-and-Traffic-Volume">¶</a></h3><p>次は、一日の中でも特に交通量が多い時間帯を特定するために、時間帯ごとの平均交通量を比較していく。
+<h3 id="%E6%99%82%E9%96%93%E5%B8%AF%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">時間帯と交通量の関係性の分析<a class="anchor-link" href="#%E6%99%82%E9%96%93%E5%B8%AF%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">¶</a></h3><p>次は、一日の中でも特に交通量が多い時間帯を特定するために、時間帯ごとの平均交通量を比較していく。
 これまでの分析で平日の方が交通量が多いことが分かっているため、本来は平日のグラフのみをプロットすればよいが、
 より包括的な理解を得るために、週末のグラフも併せて描画して比較対照していく。
 なお、このグラフでも同様に、ピーク時を赤点と罫線で強調表示し、直感的に把握しやすいようにする。</p>
@@ -9158,7 +9159,7 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Quick-Summary:-Temporal-Indicators-and-Traffic-Volume">Quick Summary: Temporal Indicators and Traffic Volume<a class="anchor-link" href="#Quick-Summary:-Temporal-Indicators-and-Traffic-Volume">¶</a></h3><p>これまでの時間的要因について分析した結果をまとめると、次のようなことが分かった。</p>
+<h3 id="%E6%99%82%E9%96%93%E7%9A%84%E8%A6%81%E5%9B%A0%E3%81%AE%E8%A6%81%E7%82%B9%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC">時間的要因の要点サマリー<a class="anchor-link" href="#%E6%99%82%E9%96%93%E7%9A%84%E8%A6%81%E5%9B%A0%E3%81%AE%E8%A6%81%E7%82%B9%E3%82%B5%E3%83%9E%E3%83%AA%E3%83%BC">¶</a></h3><p>これまでの時間的要因について分析した結果をまとめると、次のようなことが分かった。</p>
 <ul>
 <li>寒い季節に比べ、暖かい季節の方が交通量が多い傾向にある</li>
 <li>週末に比べ、平日の方が交通量が多い傾向にある</li>
@@ -9175,7 +9176,7 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Weather-Conditions">Weather Conditions<a class="anchor-link" href="#Weather-Conditions">¶</a></h2><p>これまでは、<code>date_time</code>に関して、交通量がピークを迎える傾向にある条件を特定した。<br/>
+<h2 id="%E6%B0%97%E8%B1%A1%E6%9D%A1%E4%BB%B6%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">気象条件と交通量の関係性の分析<a class="anchor-link" href="#%E6%B0%97%E8%B1%A1%E6%9D%A1%E4%BB%B6%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">¶</a></h2><p>これまでは、<code>date_time</code>に関して、交通量がピークを迎える傾向にある条件を特定した。<br/>
 これからは、これからは気象条件を軸に交通量との関係性を分析していく。</p>
 </div>
 </div>
@@ -9187,7 +9188,7 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Relationship-between-Temperature-and-Traffic-Volume">Relationship between Temperature and Traffic Volume<a class="anchor-link" href="#Relationship-between-Temperature-and-Traffic-Volume">¶</a></h3><p>まずは、量的データを扱うカラムである<code>temp</code>（気温）と交通量の関係性を調べていく。
+<h3 id="%E6%B0%97%E6%B8%A9%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">気温と交通量の関係性の分析<a class="anchor-link" href="#%E6%B0%97%E6%B8%A9%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">¶</a></h3><p>まずは、量的データを扱うカラムである<code>temp</code>（気温）と交通量の関係性を調べていく。
 セル［5］で出力したデータセットの量的データにおける交通量との相関係数のうち、<code>temp</code>は約0.1と相関が弱いが、
 量的データにおける気象カテゴリの中ではトップの項目なので、念のために可視化してみる。</p>
 <p>応答変数の<code>traffic_volume</code>をy軸に、説明変数の<code>temp</code>をx軸において、散布図を作成する。</p>
@@ -9251,7 +9252,7 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Relationship-between-Weather-and-Traffic-Volume">Relationship between Weather and Traffic Volume<a class="anchor-link" href="#Relationship-between-Weather-and-Traffic-Volume">¶</a></h3><p>気象条件に関して、質的データを扱うカラムは二つある。</p>
+<h3 id="%E5%A4%A9%E5%80%99%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">天候と交通量の関係性の分析<a class="anchor-link" href="#%E5%A4%A9%E5%80%99%E3%81%A8%E4%BA%A4%E9%80%9A%E9%87%8F%E3%81%AE%E9%96%A2%E4%BF%82%E6%80%A7%E3%81%AE%E5%88%86%E6%9E%90">¶</a></h3><p>気象条件に関して、質的データを扱うカラムは二つある。</p>
 <ul>
 <li><code>wheather_main</code>: 天気の種類（大まかな分類）</li>
 <li><code>weather_description</code>: 天気の詳細説明（細かな分類）</li>
@@ -10977,7 +10978,7 @@ EDAの段階ではここまでとする。
 <li><p>カテゴリ変数としての <code>weather_main</code> / <code>weather_description</code> を用いた分析では、
 快晴よりも、<strong>曇りや小雨など「やや悪天候」のときに交通量が多い</strong>傾向 が見られた。</p>
 </li>
-<li><p>一方で、<code>haze</code> や <code>mist</code> など<strong>視界不良となる天候では平均交通量が比較的低い</strong></p>
+<li><p>一方で、<code>mist</code> や <code>haze</code> など<strong>視界不良となる天候では平均交通量が比較的低い</strong>傾向が見られた。</p>
 </li>
 </ul>
 <p>これらの結果から、ミネソタ州の湿潤大陸性気候により、雲がかかってくると現地住民は雨を警戒して移動手段を車にするかもしれない
@@ -10985,7 +10986,7 @@ EDAの段階ではここまでとする。
 <p>また、暖かい季節（4〜10月）の日中データに絞り、<br>
 十分な標本サイズをもつ主要な気象条件10種類に限定して再集計したところ、</br></p>
 <ul>
-<li>全体としてはそこまで極端な差はないものの、<strong>scattered clouds のときに最も交通量が多く、hazeやfog のときにやや少ない</strong></li>
+<li>全体としてはそこまで極端な差はないものの、<strong>scattered clouds のときに最も交通量が多く、mist や haze のときにやや少ない</strong></li>
 </ul>
 <p>というパターンが棒グラフの頻度分析により視認できた。</p>
 <p>このパターンの統計的有意性を検証するため、<code>scattered clouds</code> と <code>mist</code> の日中交通量について、R（rpy2）による
@@ -10996,7 +10997,7 @@ Welch の t 検定を行った結果、</p>
 </ul>
 <p>であることから、<strong>統計的には有意な差がある</strong>と判断した。</p>
 <p>ただし、標本サイズ・自由度が高いため、検出力が高くなってしまった可能性を考慮すべきであり、
-<strong>実務上どこまで重要な差とみなすかは、広告コストとのバランスを見ながら判断すべき</strong>である。</p>
+<strong>実務上どこまで重要な差とみなすかは、効果量と広告コストとのバランスを見ながら判断すべき</strong>である。</p>
 <p>また、<code>scattered clouds</code>・<code>haze</code>・<code>mist</code>の3つの天候について、ACFとヒートマップを用いて周期性の有無を調査した結果、
 いずれの天候も明確な周期性は見られなかったが、</p>
 <ul>
@@ -11013,8 +11014,8 @@ Welch の t 検定を行った結果、</p>
 <li>平均値ベース（期待値重視）： 1位 4月、2位 10月、次点で5・6・8月が続く</li>
 <li>中央値ベース（外れ値の影響を除外）： 1位 10月、2位 4月、次点で8・6・5月が続く</li>
 </ul>
-<p>順位に若干の変動はあるものの、どちらの指標でも 暖かい季節（4〜10月）に交通量が多くなる という大局的な傾向は一致している。</p>
-<p>したがって、4〜10月を優先ターゲットにすることは前提 となるだろう。
+<p>順位に若干の変動はあるものの、どちらの指標でも「暖かい季節（4〜10月）に交通量が多くなる」という大局的な傾向は一致している。</p>
+<p>したがって、広告戦略として4〜10月を優先ターゲットにすることは前提 となるだろう。
 そのうえで、具体的に何月に予算を重点配分するかは、保守的な姿勢（中央値ベース）をとるか、
 積極的な姿勢（期待値ベース）をとるかによって変わってくるため、マーケティング部門の方針次第である。</p>
 <hr>
@@ -11028,7 +11029,7 @@ Welch の t 検定を行った結果、</p>
 <li>「1日の中でも特に <strong>夕方15〜18時台</strong> に集中的に配信する」</li>
 </ol>
 <p>そのうえで、予算とスケジュールに余裕がある場合は、
-「曇りや小雨のときに配信を強化し、視界不良となる天候（haze, mist）のときは配信を控える」など、天候APIを活用した戦略も
+「曇りや小雨のときに配信を強化し、視界不良となる天候（mist, haze）のときは配信を控える」など、天候APIを活用した戦略も
 検討の余地がある。</p>
 </hr></div>
 </div>
