@@ -105,6 +105,7 @@ pip install -r requirements.txt
 # (Optional) notebook execution helpers
 pip install -r requirements-dev.txt
 ```
+※ rpy2のセットアップには、R本体のインストールが必要です。
 
 ##### 個人的な開発フロー（再現には不要）
 
@@ -113,6 +114,30 @@ pip install -r requirements-dev.txt
   - リポジトリ / ドキュメント: [nvim-jupy-bridge](https://github.com/Yuji-RE/nvim-jupy-bridge)（現在非公開）
 
 ---
+
+### データセット構造
+
+- 出典: [UCI Machine Learning Repository: Metro Interstate Traffic Volume Data Set](https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume)
+- 提供者: John Hogue氏
+
+- **内容**：ミネソタ州 I-94（西行き）の交通量（MN DoT *ATR station 301*）を、**1時間単位**で記録したデータ。天候・祝日情報が付与されています。
+- **期間**：2012〜2018年（時刻はローカルタイムゾーン）
+- **行数**：48,204
+- **列数**：9
+- **ファイル**：`Metro_Interstate_Traffic_Volume.csv.gz`（Size: 395.9 KB）
+
+| Column | Role | Type | Description | Units |
+|---|---|---|---|---|
+| `holiday` | Feature | Categorical | US national holidays + regional holiday (e.g., Minnesota State Fair) | - |
+| `temp` | Feature | Continuous | Average temperature | Kelvin |
+| `rain_1h` | Feature | Continuous | Rain amount in the hour | mm |
+| `snow_1h` | Feature | Continuous | Snow amount in the hour | mm |
+| `clouds_all` | Feature | Integer | Cloud cover | % |
+| `weather_main` | Feature | Categorical | Short weather description | - |
+| `weather_description` | Feature | Categorical | Longer weather description | - |
+| `date_time` | Feature | Date | Hour of the data collected (local CST) | - |
+| `traffic_volume` | Target | Integer | Hourly reported westbound traffic volume (ATR 301) | vehicles/hour |
+
 
 ### 🔭 技術的振り返り・改善点
 
