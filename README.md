@@ -32,11 +32,7 @@
 
 ## ✨ 要点サマリー
 
-詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)（ノートブックのHTMLページへのリンク）を参照
-
----
-
-- 分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。
+分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。
 
 ### 【最優先戦略：配信タイミングの最適化】
 
@@ -53,11 +49,13 @@
 
 さらなる効果改善を図る場合
 
-- **狙い目**: 「曇り」や「小雨」 など、やや天候が崩れたタイミング（交通量増の傾向あり）
-- **抑制**: 「霧」や「靄（もや）」 など、視界不良時（交通量減かつ有意差あり）
+- **狙い目**: 「曇り」や「小雨」 など、やや天候が崩れたタイミング
+- **抑制**: 「霧」や「靄（もや）」 など、視界不良時
 
 → 予算とスケジュールに余裕があれば、天候データと連動した動的配信も検討可能。
-  しかし、天候条件による交通量変化の効果量は小さく、実運用でのコスト対効果を慎重に評価する必要がある。
+  **しかし、天候条件による交通量変化の効果量は小さく、費用対効果を慎重に評価する必要がある。**
+
+詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照
 
 ---
 
@@ -67,9 +65,8 @@
     * 売上への寄与まで狙うなら、交通量の多さだけでなく、**ターゲット層に最もリーチできる時間帯・条件**を特定する
     * その前提として、**自社ゲームのターゲット層の具体的ペルソナ設計**が必要
 
-    * I-94高速道路の利用者層（ **属性・利用パターン** ）を把握し、ターゲットと重なる層が広告を目にする確率が高い条件を特定する
     * さらに、別軸として **「どの条件で広告を見たとき購買意欲が高まるか」** を検討する
-    * 因果に踏み込むには、**先行研究**や**SNS等のリアルタイム情報**を参照しつつ、定量・定性データを **行動経済学／社会心理学**の観点での分析も検討する
+    * 因果に踏み込むには、**先行研究**や**SNS等のリアルタイム情報**を参照しつつ、因果推論や行動経済学／社会心理学の観点での分析も必要
 
 ---
 
@@ -96,13 +93,12 @@ pip install -r requirements.txt
 
 # (Optional) notebook execution helpers
 pip install -r requirements-dev.txt
-
 ```
 
 #### 個人的な開発フロー（再現には不要）
 
 - エディタ: Neovim
-- Notebook連携: nvim-jupy-bridge（NeovimからVS CodeのJupyter Notebook UIへ同期＆実行を実現するvsc拡張）
+- Notebook連携: nvim-jupy-bridge(Neovim - VS Code Notebook Sync Runner)
   - リポジトリ / ドキュメント: [nvim-jupy-bridge](https://github.com/Yuji-RE/nvim-jupy-bridge)（現在非公開）
 
 ---
@@ -128,7 +124,7 @@ pip install -r requirements-dev.txt
 
 - ビジネスインパクトを直感的に伝えるために、効果量の算出など、具体的数値の提示を増やす
 - 「欠損・外れ値の扱い」について、明確な基準を設け、ルールやポリシーを定義する
-- 再利用性、testability、readibility向上のためのコードの関数化
+- 再利用性、testability、readability向上のためのコードの関数化
 - 回帰でも分類でも、「モデル」をひとつ取り入れる（「EDA→前処理→モデル作成→評価」まで通して行う）
 
 ---
@@ -141,7 +137,7 @@ pip install -r requirements-dev.txt
 
 ---
 
-※ 本プロジェクトはDataquestのガイド付きプロジェクト["Finding Heaviy Traffic Indicators on I-94"](https://github.com/dataquestio/solutions/blob/master/Mission524Solutions.ipynb)をベースにしています。
+※ 本プロジェクトは[Dataquest](https://www.dataquest.io/)のガイド付きプロジェクト["Finding Heaviy Traffic Indicators on I-94"](https://github.com/dataquestio/solutions/blob/master/Mission524Solutions.ipynb)をベースにしています。
 
 ###### 【ガイドに沿って実装したもの】（主に前半部分）
 - データ分析の目的
