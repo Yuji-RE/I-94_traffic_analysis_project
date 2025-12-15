@@ -53,6 +53,7 @@
 
 <details>
 <summary>分析結果のグラフを見る（クリックで展開）</summary>
+
 ![曜日別の交通量推移](./docs/images/traffic_by_dayofweek.png)
 ![時間帯別の交通量推移](./docs/images/traffic_by_hour.png)
 ![月別の交通量推移](./docs/images/traffic_by_month.png)
