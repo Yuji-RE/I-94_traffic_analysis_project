@@ -1,13 +1,16 @@
 # 📊 I-94州間高速道路における「交通量ピーク」要因の分析
 
 - **対象データ**： 州間高速道路 - 米国ミネソタ州I-94西行き（Minneapolis–St Paul間の観測点）の時間帯別交通量データ
+
 - **目的**：交通量が多くなる条件を特定する
+
 - **主なスキル**：
     - 探索的データ可視化(EDA):
         - 折れ線グラフ・棒グラフ・散布図・ヒストグラム・ヒートマップ
         - ACF（残差など）
         - Welchのt検定
     - ウェブリサーチ
+
 - **プロジェクトファイル**:
     - [`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb)
     - [`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
@@ -35,13 +38,10 @@
     - 天候と交通量の関係性の分析
 5. **まとめ**
 
-### 📁 プロジェクトファイルはこちら
-[`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb)
-[`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
-
 ## ✨ 要点サマリー
 
 分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。  
+
 ※ 詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照
 
 
