@@ -34,7 +34,8 @@
     - 天候と交通量の関係性の分析
 5. **まとめ**
 
-- **プロジェクトファイル**： [`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb), [`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
+- [`EDA ノートブック.ipynb`](./traffic_analysis_project.ipynb)
+- [`EDA ノートブック.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
 
 ## ✨ 要点サマリー
 
@@ -115,7 +116,7 @@ pip install -r requirements-dev.txt
 
 ---
 
-### データセット構造
+### 🗂 データセット構造
 
 - 出典: [UCI Machine Learning Repository: Metro Interstate Traffic Volume Data Set](https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume)
 - 提供者: John Hogue氏
@@ -139,7 +140,7 @@ pip install -r requirements-dev.txt
 | `traffic_volume` | Target | Integer | Hourly reported westbound traffic volume (ATR 301) | vehicles/hour |
 
 
-### 🔭 技術的振り返り・改善点
+## 🔭 技術的振り返り・改善点
 
 - **欠損を含む時系列データ扱い**: “標本サイズの大きさを過信し、欠損による連続性や等間隔性への影響を過小評価して分析してしまった”  
    → 時系列補間や類似パターンによる補完などの技術を適用し、影響を最小限に抑える処理が必要
