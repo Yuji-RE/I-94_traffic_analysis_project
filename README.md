@@ -13,7 +13,6 @@
 
 - **プロジェクトファイル**： [`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb), [`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
 
-
 ## 🚀 プロジェクト概要
 
 本プロジェクトでは、John Hogue氏より提供されている[Interstate 94 westbound; 州間高速道路94号線西行き](https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume)のパブリックデータセットを用いて、下記のシナリオ設定のもと探索的データ分析(EDA)を実施する。
@@ -48,6 +47,12 @@
 基本的な配信スケジュールの指針
 
 - **曜日**: 平日を優先（特に 木・水・金 の順で効果が高い）
+<details>
+<summary>▼グラフを見る（クリックで展開）</summary>
+
+![月別の交通量推移](./docs/images/traffic_by_month.png)
+
+</details>
 - **時間**: 16時前後をピークとする 15時〜18時（夕方ラッシュ） に集中
 - **月別**: 10月と4月 は安定して高トラフィックが見込めるため重点配分候補
 - **季節**: 暖かい季節（4月〜10月）に注力し、寒い季節（11月〜3月）は抑制

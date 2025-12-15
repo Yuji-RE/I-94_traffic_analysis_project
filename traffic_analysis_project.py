@@ -1,3 +1,12 @@
+# %% [markdown]
+"""
+- 注記: ノートブックの構成について
+
+本ノートブックは、実際の思考・分析プロセスを透明度をもって伝えることを目的としている。
+そのため、仮説が外れた場面や、データに向き合って試行錯誤した「泥臭い作業」もあえて削除せずに残しており、
+提出レポート用に整形されたものではないことに注意されたい。
+私のデータ分析に対する姿勢や、問題解決のアプローチを理解してもらう一助となれば幸いである。
+"""
 # %%
 # ruff: noqa: E402
 # %% [markdown]
@@ -389,9 +398,9 @@ PIONEER PRESSのニュース記事</a>を参照(最終アクセス日: 2025年12
 `day_time`（日中データ）ではなく`i_94`（全日データ）で比較する。
 """
 # %%
-# 7月22〜25日のデータを抽出して、時間ごとの平均を算出
+# 7月22〜27日のデータを抽出して、時間ごとの平均を算出
 
-by_hour_july_22_25 = (
+by_hour_july_22_27 = (
     i_94.query("year == 2016 and month == 7 and day in [22,23,24,25,26,27]")
     .groupby(["day", "hour"])["traffic_volume"]
     .mean()
@@ -400,8 +409,8 @@ by_hour_july_22_25 = (
 
 # グラフ描画
 plt.figure(figsize=(12, 5))
-by_hour_july_22_25.plot(marker="o", linewidth=2)
-plt.title("Average Traffic Volume (July 22–25)", fontsize=14)
+by_hour_july_22_27.plot(marker="o", linewidth=2)
+plt.title("Average Traffic Volume (July 22–27)", fontsize=14)
 plt.xlabel("Hour of Day", fontsize=12)
 plt.ylabel("Average Traffic Volume", fontsize=12)
 plt.grid(True, linestyle="--", alpha=0.6)
