@@ -34,15 +34,13 @@
     - 天候と交通量の関係性の分析
 5. **まとめ**
 
+【成果物はこちらから】
 - [`EDA ノートブック.ipynb`](./traffic_analysis_project.ipynb)
 - [`EDA ノートブック.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
 
-## ✨ 要点サマリー
+## ✨ 要点サマリー （※ 詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照）
 
-分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。  
-
-※ 詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照
-
+分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。
 
 ### 【最優先戦略：配信タイミングの最適化】
 
