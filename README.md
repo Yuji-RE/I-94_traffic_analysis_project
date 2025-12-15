@@ -30,11 +30,17 @@
 4. **気象条件と交通量の関係性の分析**
     - 気温と交通量の関係性の分析
     - 天候と交通量の関係性の分析
-5. **結論とまとめ**
+5. **まとめ**
+
+### 📁 プロジェクトファイルはこちら
+[`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb)
+[`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
 
 ## ✨ 要点サマリー
 
-分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。
+分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。  
+※ 詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照
+
 
 ### 【最優先戦略：配信タイミングの最適化】
 
@@ -56,10 +62,6 @@
 
 → 予算とスケジュールに余裕があれば、天候データと連動した動的配信も検討可能。  
   **しかし、天候条件による交通量変化の効果量は小さく、費用対効果を慎重に評価する必要がある。**
-
-
-
-※ 詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照
 
 ---
 
@@ -121,8 +123,9 @@ pip install -r requirements-dev.txt
    → 分散分析や多重比較法など、より厳密な検定手法の習得が必要
 
 
-※「傾向把握」を目的としたEDAフェーズでは許容範囲になり得るが、将来的に厳密なモデル構築や分散評価を行う際は、これらの点に注意すべきである
+→「傾向把握」を目的としたEDAフェーズでは許容範囲になり得るが、将来的に厳密なモデル構築や分散評価を行う際は、これらの点に注意すべきである
 
+---
 
 #### 展望・成長課題
 
