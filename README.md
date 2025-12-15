@@ -1,11 +1,12 @@
 # 📊 I-94州間高速道路における「交通量ピーク」要因の分析
 
-- **対象データ**： 州間高速道路-米国ミネソタ州のI-94西行き（Minneapolis–St Paul間の観測点）における時間別交通量データ
+- **対象データ**： 州間高速道路 - 米国ミネソタ州I-94西行き（Minneapolis–St Paul間の観測点）の時間帯別交通量データ
 - **目的**：交通量が多くなる条件を特定する
 - **主なスキル**：
-    - 探索的データ可視化(EDA);
+    - 探索的データ可視化(EDA):
         - 折れ線グラフ・棒グラフ・散布図・ヒストグラム・ヒートマップ
-        - ACFによる自己相関分析・t検定
+        - ACF（残差など）
+        - Welchのt検定
     - ウェブリサーチ
 
 
@@ -23,7 +24,8 @@
 1. **データの概要把握**
 2. **データ前処理**
 3. **時間的要因と交通量の関係性の分析**
-    - 月と交通量の関係性の分析 - 曜日と交通量の関係性の分析
+    - 月と交通量の関係性の分析
+    - 曜日と交通量の関係性の分析
     - 時間帯と交通量の関係性の分析
 4. **気象条件と交通量の関係性の分析**
     - 気温と交通量の関係性の分析
@@ -55,7 +57,7 @@
 → 予算とスケジュールに余裕があれば、天候データと連動した動的配信も検討可能。
   **しかし、天候条件による交通量変化の効果量は小さく、費用対効果を慎重に評価する必要がある。**
 
-詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照
+※ 詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照
 
 ---
 
@@ -63,10 +65,10 @@
 
 - 【コンバージョン最適化に向けた追加調査】
     * 売上への寄与まで狙うなら、交通量の多さだけでなく、**ターゲット層に最もリーチできる時間帯・条件**を特定する
-    * その前提として、**自社ゲームのターゲット層の具体的ペルソナ設計**が必要
+        * その前提として、**自社ゲームのターゲット層の具体的ペルソナ設計**が必要
 
     * さらに、別軸として **「どの条件で広告を見たとき購買意欲が高まるか」** を検討する
-    * 因果に踏み込むには、**先行研究**や**SNS等のリアルタイム情報**を参照しつつ、因果推論や行動経済学／社会心理学の観点での分析も必要
+        * 因果に踏み込むには、**先行研究**や**SNS等のリアルタイム情報**を参照しつつ、因果推論や行動経済学／社会心理学の観点での分析も必要
 
 ---
 
@@ -75,13 +77,13 @@
 - 言語: Python 3.10.12
 
 - 主なライブラリ
+[requirements.txt](./requirements.txt)を参照
     - pandas
     - numpy
     - seaborn
     - matplotlib
     - statsmodels
-    - rpy2  
-[requirements.txt](./requirements.txt)を参照
+    - rpy2
 
 - 実行環境: VS Code Jupyter extension  
 [requirements-dev.txt](./requirements-dev.txt)を参照
@@ -95,7 +97,7 @@ pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
 
-#### 個人的な開発フロー（再現には不要）
+##### 個人的な開発フロー（再現には不要）
 
 - エディタ: Neovim
 - Notebook連携: nvim-jupy-bridge(Neovim - VS Code Notebook Sync Runner)
@@ -137,7 +139,7 @@ pip install -r requirements-dev.txt
 
 ---
 
-※ 本プロジェクトは[Dataquest](https://www.dataquest.io/)のガイド付きプロジェクト["Finding Heaviy Traffic Indicators on I-94"](https://github.com/dataquestio/solutions/blob/master/Mission524Solutions.ipynb)をベースにしています。
+※ 本プロジェクトは[Dataquest](https://www.dataquest.io/)のガイド付きプロジェクト["Finding Heavy Traffic Indicators on I-94"](https://github.com/dataquestio/solutions/blob/master/Mission524Solutions.ipynb)をベースにしています。
 
 ###### 【ガイドに沿って実装したもの】（主に前半部分）
 - データ分析の目的
@@ -150,7 +152,7 @@ pip install -r requirements-dev.txt
 - 2016年7月の交通量急落の深堀り（外部ニュース・気象データ・現地カレンダーの調査など）
 - 2014-2015年の欠損値深堀り
 - 各気象条件の標本サイズの偏りの検証とフィルタリング
-- ACFによる自己相関分析
-- rpy2を用いたウェルチのt検定
+- ACF、残差ACFによる自己相関分析
+- rpy2を用いたWelchのt検定
 - ヒートマップによる相対頻度分析
 - 課題設定や結論 など
