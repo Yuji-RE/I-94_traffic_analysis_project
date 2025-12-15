@@ -11,7 +11,6 @@
         - Welchのt検定
     - ウェブリサーチ
 
-- **プロジェクトファイル**： [`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb), [`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
 
 ## 🚀 プロジェクト概要
 
@@ -35,6 +34,8 @@
     - 天候と交通量の関係性の分析
 5. **まとめ**
 
+- **プロジェクトファイル**： [`traffic_analysis_project.ipynb`](./traffic_analysis_project.ipynb), [`traffic_analysis_project.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
+
 ## ✨ 要点サマリー
 
 分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。  
@@ -51,14 +52,7 @@
 - **月別**: 10月と4月 は安定して高トラフィックが見込めるため重点配分候補
 - **季節**: 暖かい季節（4月〜10月）に注力し、寒い季節（11月〜3月）は抑制
 
-<details>
-<summary>分析結果のグラフを見る（クリックで展開）</summary>
 
-![曜日別の交通量推移](./docs/images/traffic_by_dayofweek.png)
-![時間帯別の交通量推移](./docs/images/traffic_by_hour.png)
-![月別の交通量推移](./docs/images/traffic_by_month.png)
-
-</details>
 
 → **結論として、平日の夕方ラッシュ時（特に暖かい季節）をコアターゲットとする配信戦略が最も効果的である。**
 

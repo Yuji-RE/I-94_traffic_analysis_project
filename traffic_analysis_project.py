@@ -251,7 +251,7 @@ display(summary)
 by_month = day_time.groupby("month")["traffic_volume"].mean().sort_index()
 # グラフを描画
 by_month.plot(marker="o", color="green", linewidth=2)
-plt.title("Daytime Average Traffic Volume by Month", fontsize=14)
+plt.title("Average Traffic Volume by Month (Daytime)", fontsize=14)
 plt.xlabel("Month")
 plt.ylabel("Average Traffic Volume  (vehicles per hour)")
 plt.grid(True, linestyle="--", alpha=0.6)
@@ -304,7 +304,7 @@ by_month = day_time.groupby("month")["traffic_volume"].mean().sort_index()
 ax = by_month.plot(marker="o", linewidth=2, label="Mean (original)")
 by_month_iqr.plot(ax=ax, marker="o", linewidth=2, label="Mean (IQR outliers removed)")
 
-plt.title("Average Traffic Volume by Month", fontsize=14)
+plt.title("Average Traffic Volume by Month (Daytime)", fontsize=14)
 plt.xlabel("Month")
 plt.ylabel("Average Traffic Volume (vehicles per hour)")
 plt.grid(True, linestyle="--", alpha=0.6)
@@ -331,7 +331,7 @@ by_year_july = (
 
 # グラフ描画
 by_year_july.plot(marker="o", color="green", linewidth=2)
-plt.title("Average July Traffic Volume by Year", fontsize=14)
+plt.title("Average July Traffic Volume by Year (Daytime)", fontsize=14)
 plt.xlabel("Year")
 plt.ylabel("Average Traffic Volume")
 plt.grid(True, linestyle="--", alpha=0.6)
@@ -356,7 +356,7 @@ by_day_2016_july = (
 # グラフを描画
 plt.figure(figsize=(12, 5))
 by_day_2016_july.plot(marker="o", color="green", linewidth=2)
-plt.title("Average Traffic Volume in July 2016 (by Day)", fontsize=14)
+plt.title("Average Traffic Volume in July 2016 by Day (Daytime)", fontsize=14)
 plt.xlabel("Day of Month")
 plt.ylabel("Average Traffic Volume")
 plt.grid(True, linestyle="--", alpha=0.6)
@@ -830,7 +830,7 @@ plt.text(
 )
 
 
-plt.title("Average Traffic Volume by Main Weather Category", fontsize=16)
+plt.title("Average Traffic Volume by Main Weather Category (Daytime)", fontsize=16)
 plt.xlabel("Average Traffic Volume", fontsize=12)
 plt.ylabel("Main Weather Category", fontsize=12)
 plt.grid(True, axis="x", linestyle="--", alpha=0.6)
@@ -1024,7 +1024,7 @@ sns.countplot(
 )  # 不要な凡例は非表示にする
 
 # タイトルやラベルを追加
-plt.title("Frequency of Weather Descriptions", fontsize=16)
+plt.title("Frequency of Weather Descriptions (Daytime)", fontsize=16)
 plt.xlabel("Frequency (Count)", fontsize=12)
 plt.ylabel("Weather Description", fontsize=12)
 plt.tight_layout()
