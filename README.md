@@ -34,7 +34,7 @@
     - 天候と交通量の関係性の分析
 5. **まとめ**
 
-【成果物はこちらから】
+###### 【成果物はこちらから】
 - [`EDA ノートブック.ipynb`](./traffic_analysis_project.ipynb)
 - [`EDA ノートブック.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
 
