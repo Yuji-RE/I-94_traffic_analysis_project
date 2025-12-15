@@ -19,21 +19,12 @@
 *   **課題:** 限られた予算で最大の広告効果を得るため、24時間放映ではなく、最適な放映タイミングを見極める
 *   **ミッション:** 交通量データを分析し、「交通量が最も多くなる日時・条件（＝広告のゴールデンタイム）」を特定し、コスパの高い配信プランを提案する
 
-##### 分析フロー
-1. [**データの概要把握**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#overview)
-2. [**データの前処理**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#processing)
-3. [**Time Indicators**](#time-indicators)
-    - [Relationship between Month and Traffic Volume](#relationship-between-month-and-traffic-volume)
-    - [Relationship between Day of the Week and Traffic Volume](#relationship-between-day-of-the-week-and-traffic-volume)
-    - [Relationship between Time of Day and Traffic Volume](#relationship-between-time-of-day-and-traffic-volume)
-4. [**Weather Conditions**](#weather-conditions)
-    - [Relationship between Temperature and Traffic Volume](#relationship-between-temperature-and-traffic-volume)
-    - [Relationship between Weather and Traffic Volume](traffic_analysis_project.ipynb#relationship-between-weather-and-traffic-volume)
-5. [**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)
-
 ## ✨ 要点サマリー
 
-分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。
+詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)（ノートブックのHTMLページへのリンク）を参照
+
+
+- 分析結果に基づく、I-94デジタルビルボード広告運用の推奨方針は以下の通りである。
 
 ### 【最優先戦略：配信タイミングの最適化】
 
@@ -55,8 +46,6 @@
 
 → 予算とスケジュールに余裕があれば、天候データと連動した動的配信も検討可能。
   しかし、天候条件による交通量変化の効果量は小さく、実運用でのコスト対効果を慎重に評価する必要がある。
-
-* より詳細なまとめは、[ノートブックのまとめセクション](traffic_analysis_project.html#conclusion)を参照
 
 ---
 
@@ -111,10 +100,12 @@
     - rpy2
 詳しくは[requirements.txt](./requirements.txt)を参照
 
-- 開発環境: VS Code + Jupyter extension
+- 実行環境: VS Code + Jupyter extension
 詳しくは[requirements-dev.txt](./requirements-dev.txt)を参照
 
-##### セットアップ手順
+- 開発環境: 
+
+##### 最小セットアップ手順
 
 ```
 pip install -r requirements.txt
