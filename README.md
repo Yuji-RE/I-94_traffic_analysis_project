@@ -123,7 +123,7 @@
 Welchのt検定の結果、平均交通量に有意差あり（約5.7%）  
 しかし、標本サイズの大きさ故に検出力が高くなっている可能性があり、  
 どこまで参考とするかは効果量と費用対効果を考慮して判断する必要あり
-![t検定の結果](./docs/images/traffic_by_weather_ttest.png)
+![t検定の結果](./docs/images/traffic_by_month_ttest.png)
 
 <br>
 
