@@ -62,7 +62,7 @@
 <br>
 
 <details>
-<summary><b> 📈 🔍 主要なグラフ付きで確認する（クリックで展開）</b></summary>
+<summary><code> 📈 🔍 主要なグラフ付きで確認する（クリックで展開）</code></summary>
 
 <br>
 
@@ -111,7 +111,7 @@
 <br>
 
 <details>
-<summary><b> 📈 🔍 主要なグラフ付きで確認する（クリックで展開）</b></summary>
+<summary><code> 📈 🔍 主要なグラフ付きで確認する（クリックで展開）</code></summary>
 
 <br>
 
