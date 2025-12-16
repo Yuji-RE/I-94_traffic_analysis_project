@@ -62,7 +62,7 @@
 <br>
 
 <details>
-<summary><b> 📈 主要なグラフ付きで確認する（クリックで展開）</b></summary>
+<summary><b> 📈 🔍 主要なグラフ付きで確認する（クリックで展開）</b></summary>
 
 <br>
 
@@ -111,7 +111,7 @@
 <br>
 
 <details>
-<summary><b> 📈 主要なグラフ付きで確認する（クリックで展開）</b></summary>
+<summary><b> 📈 🔍 主要なグラフ付きで確認する（クリックで展開）</b></summary>
 
 <br>
 
@@ -123,7 +123,7 @@
 Welchのt検定の結果、平均交通量に有意差あり（約5.7%）  
 しかし、標本サイズの大きさ故に検出力が高くなっている可能性があり、  
 どこまで参考とするかは効果量と費用対効果を考慮して判断する必要あり
-![t検定の結果](./docs/images/traffic_by_month_ttest.png)
+![t検定の結果](./docs/images/traffic_by_weather_ttest.png)
 
 <br>
 
@@ -243,7 +243,7 @@ pip install -r requirements-dev.txt
 
 <hr>
 
-→「傾向把握」を目的としたEDAフェーズでは許容範囲になり得るが、
+🔴 「傾向把握」を目的としたEDAフェーズでは許容範囲になり得るが、
 プレゼンテーション用途の可視化（EDV）や
 将来的に厳密なモデル構築や分散評価を行う際は、これらの点に注意すべきである
 
