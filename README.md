@@ -39,6 +39,7 @@
 ### 【成果物】
 - [`EDA ノートブック.ipynb`](./traffic_analysis_project.ipynb)
 - [`EDA ノートブック.html`](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html)
+- [`EDA ノートブック.py`](./traffic_analysis_project.py)
 
 ## ✨ 要点サマリー （※ 詳細は[**まとめ**](https://yuji-re.github.io/I-94_traffic_analysis_project/index.html#conclusion)を参照）
 
