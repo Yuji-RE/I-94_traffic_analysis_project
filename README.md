@@ -53,25 +53,25 @@
 
 **1. 月別の交通量トレンド**
 暖かい季節（4月〜10月）に注力し、寒い季節（11月〜3月）は抑制
-![月別グラフ](./images/traffic_by_month.png)
+![月別グラフ](./docs/images/traffic_by_month.png)
 
 <br>
 
 **2. 曜日別の交通量トレンド**
 平日を優先（特に 木・水・金 の順で効果が高い）
-![曜日別グラフ](./images/traffic_by_dayofweek.png)
+![曜日別グラフ](./docs/images/traffic_by_dayofweek.png)
 
 <br>
 
 **3. 時間帯別の交通量トレンド**
 16時前後をピークとする 15時〜18時（夕方ラッシュ） に集中
-![時間帯別グラフ](./images/traffic_by_hour.png)
+![時間帯別グラフ](./docs/images/traffic_by_hour.png)
 
 <br>
 
 **4. 月別交通量トレンドの簡易ロバストネスチェックの結果**
 10月と4月 は安定して高トラフィックが見込めるため重点配分候補
-![月別ロバストネスチェック](./images/result_of_robustness_check.png)
+![月別ロバストネスチェック](./docs/images/result_of_robustness_check.png)
 
 </details>
 
@@ -93,13 +93,13 @@
 
 **1. 天候別の交通量トレンド**
 「曇り」や「小雨」で交通量が増加傾向、「霧」や「靄（もや）」で減少傾向
-![月別グラフ](./images/traffic_by_weather.png)
+![月別グラフ](./docs/images/traffic_by_weather.png)
 
 **2. 「曇り」と「霧」の有意差**
 Welchのt検定の結果、平均交通量に有意差あり（約5.7%）  
 しかし、標本サイズの大きさ故に検出力が高くなっている可能性があり、  
 どこまで参考とするかは効果量と費用対効果を考慮して判断する必要あり
-![曜日別グラフ](./images/traffic_by_weather_ttest.png)
+![t検定の結果](./docs/images/traffic_by_weather_ttest.png)
 
 <br>
 
