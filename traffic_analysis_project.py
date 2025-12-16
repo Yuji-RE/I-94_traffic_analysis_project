@@ -1389,7 +1389,7 @@ $$
  & \text{Test stat: } t = 3.141 \quad (\mathrm{df} = 678.4) \\
  & \text{p-value: } 0.00175 \\
  & \text{Decision: 有意水準 } 5\% (\alpha = 0.05) \text{ で } H_0 \text{ を棄却} \\
- & \text{Conclusion: 95%信頼区間が [105.69, 458.07] と 0 を含まないため、} \\
+ & \text{Conclusion: 95\%信頼区間が [105.69, 458.07] と 0 を含まないため、} \\
  & \text{平均交通量に統計的に有意な差が認められる。}
 \end{aligned}
 $$
