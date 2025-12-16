@@ -269,7 +269,7 @@ pip install -r requirements-dev.txt
 
 また、Github上で公開することでポートフォリオとしての活用を想定しています。
 
-<div align="center">...</div>
+---
 
 ※ 本プロジェクトは[Dataquest](https://www.dataquest.io/)のガイド付きプロジェクト["Finding Heavy Traffic Indicators on I-94"](https://github.com/dataquestio/solutions/blob/master/Mission524Solutions.ipynb)をベースにしています。
 
