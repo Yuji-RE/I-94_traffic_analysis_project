@@ -186,7 +186,7 @@ pip install -r requirements-dev.txt
 
 - エディタ: Neovim
 - Notebook連携: nvim-jupy-bridge(Neovim - VS Code Notebook Sync Runner)
-  - リポジトリ / ドキュメント: [nvim-jupy-bridge](https://github.com/Yuji-RE/nvim-jupy-bridge)（現在非公開）
+  - リポジトリ / ドキュメント: [nvim-jupy-bridge](https://github.com/Yuji-RE/nvim-jupy-bridge)
 
 ---
 
